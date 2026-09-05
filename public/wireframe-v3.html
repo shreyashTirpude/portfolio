@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Wireframe v3 — Editorial Display (Loop × Subscrr)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#09090b; --fg:#f4f4f5; --card:#101012; --border:#27272a;
+    --muted:#a1a1aa; --muted2:#6b7280; --accent:#10b981; --accent-bright:#34d399;
+    --display:'Anton',Impact,sans-serif;
+  }
+  html[data-theme="light"]{
+    --bg:#f4f4f5; --fg:#0a0a0a; --card:#ffffff; --border:#e4e4e7;
+    --muted:#52525b; --muted2:#a1a1aa;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:4rem}
+  body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;line-height:1.6;padding-bottom:5rem;transition:background .4s,color .4s}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .container{max-width:64rem;margin:0 auto;padding:0 1.5rem}
+
+  /* ---------- edit affordances ---------- */
+  [contenteditable]{border-radius:2px;transition:outline .15s;outline-offset:3px}
+  [contenteditable]:hover{outline:1px dashed rgba(16,185,129,.55);cursor:text}
+  [contenteditable]:focus{outline:2px solid var(--accent);background:rgba(16,185,129,.06)}
+
+  /* ---------- reveal ---------- */
+  [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  /* ---------- THE LOOP AGENCY HERO: giant stacked display type + corner nav ---------- */
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:6.5rem 0 2rem}
+
+  /* ===== ANIMATED BACKGROUND (hobro.digital × Aceternity × Cult UI) ===== */
+  /* 1. gradient mesh blobs — the hobro formula, emerald palette */
+  .blobs{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);mix-blend-mode:screen;opacity:.5}
+  .blob.b1{width:520px;height:520px;background:radial-gradient(circle at 30% 30%,#10b981,#059669 60%,transparent);top:-140px;left:-120px;animation:blob-a 26s ease-in-out infinite}
+  .blob.b2{width:460px;height:460px;background:radial-gradient(circle at 60% 40%,#34d399,#10b981 55%,transparent);top:12%;right:-160px;animation:blob-b 32s ease-in-out infinite}
+  .blob.b3{width:420px;height:420px;background:radial-gradient(circle at 50% 50%,#065f46,rgba(16,185,129,.4) 70%,transparent);bottom:-160px;left:22%;animation:blob-c 38s ease-in-out infinite}
+  .blob.b4{width:300px;height:300px;background:radial-gradient(circle,#a7f3d0,rgba(16,185,129,.5) 55%,transparent);bottom:8%;right:12%;animation:blob-d 22s ease-in-out infinite}
+  @keyframes blob-a{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(70px,50px) scale(1.15)}66%{transform:translate(-40px,90px) scale(.92)}}
+  @keyframes blob-b{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-90px,60px) scale(1.1)}70%{transform:translate(-30px,-60px) scale(.9)}}
+  @keyframes blob-c{0%,100%{transform:translate(0,0) scale(1)}30%{transform:translate(60px,-70px) scale(1.12)}65%{transform:translate(-70px,30px) scale(.94)}}
+  @keyframes blob-d{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-50px) scale(1.2)}}
+
+  /* 2. aurora ribbons — slow southern-lights sweep */
+  .aurora{position:absolute;inset:-20%;z-index:0;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(16,185,129,.16) 35%,rgba(6,182,212,.08) 50%,transparent 65%);background-size:220% 220%;animation:aurora 60s linear infinite;mix-blend-mode:screen}
+  @keyframes aurora{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+  /* 3. grid beams — glowing laser lines traveling the grid (Cult UI) */
+  .beam{position:absolute;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(16,185,129,.65),transparent);z-index:1;pointer-events:none;opacity:0;animation:beam-sweep 7s ease-in-out infinite}
+  .beam.v{width:1px;height:0;background:linear-gradient(180deg,transparent,rgba(16,185,129,.5),transparent);animation:beam-sweep-v 9s ease-in-out infinite}
+  .beam.bm1{top:28%}
+  .beam.bm2{top:58%;animation-delay:2.4s}
+  .beam.bm3{top:78%;animation-delay:4.8s}
+  .beam.vm1{left:18%;animation-delay:1.4s}
+  .beam.vm2{left:62%;animation-delay:5.6s}
+  @keyframes beam-sweep{0%{width:0;opacity:0;left:0}10%{opacity:1}70%{width:70%;opacity:1}100%{width:0;opacity:0;left:70%}}
+  @keyframes beam-sweep-v{0%{height:0;opacity:0;top:0}10%{opacity:1}70%{height:70%;opacity:1}100%{height:0;opacity:0;top:70%}}
+
+  /* 4. scanline sweep — HUD alive, cheapest trick */
+  .scanline{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 0%,rgba(16,185,129,.06) 48%,transparent 52%);background-size:100% 200%;animation:scan 9s linear infinite}
+  @keyframes scan{0%{background-position:0 -200%}100%{background-position:0 200%}}
+
+  /* 5. dotted glow field — breathing terminal matrix (canvas-free CSS version) */
+  .dots{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(16,185,129,.4) 1px,transparent 1.5px);background-size:26px 26px;animation:dots-breathe 5s ease-in-out infinite}
+  @keyframes dots-breathe{0%,100%{opacity:.32}50%{opacity:.6}}
+
+  html[data-theme="light"] .blob{opacity:.32;mix-blend-mode:multiply;filter:blur(80px)}
+  html[data-theme="light"] .beam{background:linear-gradient(90deg,transparent,rgba(16,185,129,.5),transparent)}
+  html[data-theme="light"] .aurora{background:linear-gradient(110deg,transparent 20%,rgba(16,185,129,.12) 35%,rgba(6,182,212,.06) 50%,transparent 65%)}
+  html[data-theme="light"] .scanline{background:linear-gradient(180deg,transparent 0%,rgba(16,185,129,.08) 48%,transparent 52%)}
+  @media (prefers-reduced-motion: reduce){
+    .blob,.aurora,.beam,.beam.v,.scanline,.dots{animation:none!important;opacity:.25}
+  }
+
+  .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 78%);mask-image:linear-gradient(to bottom,#000 0%,transparent 78%);z-index:0}
+  html[data-theme="light"] .grid-bg{background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px)}
+  .spot{position:absolute;inset:0;background:radial-gradient(ellipse 55% 42% at 50% 0%,rgba(16,185,129,.15),transparent 70%);z-index:0}
+
+  /* corner nav — tiny mono, Loop-style */
+  .corner-nav{position:absolute;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:flex-start;padding:1.4rem 1.6rem;pointer-events:none}
+  .corner-nav > div{pointer-events:auto}
+  .cn-brand{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+  .cn-brand .hl{color:var(--accent)}
+  .cn-menu{display:flex;gap:1.1rem;list-style:none}
+  .cn-menu a{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;gap:.4rem;align-items:center;transition:color .2s}
+  .cn-menu a:hover{color:var(--fg)}
+  .cn-menu a .n{color:var(--muted2);font-size:.6rem}
+
+  /* edge rails — Loop's LIST/GALLERY + LIGHT/DARK mode list */
+  .edge-left{position:absolute;left:1.4rem;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:.7rem;pointer-events:none}
+  .edge-left a{pointer-events:auto;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);text-decoration:none;writing-mode:vertical-rl;transition:color .2s}
+  .edge-left a:hover{color:var(--accent)}
+  .edge-right{position:absolute;right:1.4rem;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:.7rem;pointer-events:none}
+  .edge-right button{pointer-events:auto;background:none;border:none;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);cursor:pointer;display:flex;align-items:center;gap:.35rem;transition:color .2s}
+  .edge-right button:hover{color:var(--accent)}
+  .edge-right button .sq{display:inline-block;width:7px;height:7px;background:transparent;border:1px solid var(--muted2)}
+  .edge-right button.on{color:var(--fg)}
+  .edge-right button.on .sq{background:var(--accent);border-color:var(--accent)}
+  @media (max-width:820px){.edge-left,.edge-right{display:none}}
+
+  /* giant stacked display — the Loop signature */
+  .stack{position:relative;z-index:2;text-align:center}
+  .stack-line{font-family:var(--display);font-size:clamp(3rem,11vw,8.5rem);line-height:.96;letter-spacing:.01em;text-transform:uppercase;color:var(--fg);white-space:nowrap}
+  .stack-line.outline{color:transparent;-webkit-text-stroke:1px var(--muted2)}
+  .stack-line.accent{color:var(--accent)}
+  .stack-line.dim{color:var(--muted2)}
+  @media (max-width:820px){.stack-line{white-space:normal}}
+
+  /* hero bottom: statement (Subscrr editorial line-break) + scroll cue */
+  .hero-bottom{position:absolute;left:0;right:0;bottom:0;z-index:25;padding:1.6rem 1.8rem;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+  .statement{font-size:clamp(1.05rem,2.2vw,1.4rem);font-weight:600;line-height:1.35;color:var(--fg);max-width:46ch}
+  .statement .br{display:block}
+  .statement em{color:var(--accent);font-style:italic}
+  .statement .dim{color:var(--muted)}
+  .scroll-cue{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);display:flex;align-items:center;gap:.6rem}
+  .scroll-cue .tri{width:0;height:0;border-left:8px solid var(--accent);border-top:5px solid transparent;border-bottom:5px solid transparent;animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateX(6px)}}
+
+  /* Loop-style client marquee — big scrolling names */
+  .client-marquee{overflow:hidden;border-block:1px solid var(--border);padding:1.3rem 0;margin-top:3.2rem;background:rgba(255,255,255,.015);position:relative;z-index:2}
+  .client-marquee-track{display:flex;gap:4.5rem;width:max-content;animation:marquee 30s linear infinite}
+  .client-marquee:hover .client-marquee-track{animation-play-state:paused}
+  .client-marquee span{font-family:var(--display);font-size:clamp(1.4rem,3.4vw,2.4rem);text-transform:uppercase;letter-spacing:.02em;color:var(--muted2);white-space:nowrap}
+  .client-marquee span.solid{color:var(--fg)}
+  .client-marquee span.hl{color:var(--accent)}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){.client-marquee-track{animation:none}}
+
+  /* ---------- sections: Subscrr-style eyebrows + line-broken headings ---------- */
+  section{padding:5.5rem 0}
+  .sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.2rem}
+  .sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted2);letter-spacing:.1em}
+  h2.section-title{font-family:var(--display);font-size:clamp(2.2rem,6vw,4.2rem);line-height:1;text-transform:uppercase;letter-spacing:.01em;font-weight:400}
+  h2.section-title .br{display:block}
+  h2.section-title .out{color:transparent;-webkit-text-stroke:1px var(--muted2)}
+  h2.section-title .hl{color:var(--accent)}
+  .sub{color:var(--muted);margin-top:.8rem;font-size:.98rem;max-width:56ch}
+
+  /* terminal card — compact, right side */
+  .intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:start;margin-top:2.2rem}
+  @media(max-width:900px){.intro-grid{grid-template-columns:1fr}}
+  .term{background:var(--card);border:1px solid var(--border);border-radius:.7rem;overflow:hidden}
+  .term-bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .9rem;border-bottom:1px solid var(--border)}
+  .term-bar .ttl{margin-left:.4rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted)}
+  .dot{width:.6rem;height:.6rem;border-radius:50%}
+  .term-body{padding:1rem 1.15rem;font-family:'JetBrains Mono',monospace;font-size:.84rem;line-height:1.8;color:#d4d4d8;min-height:10.5rem}
+  html[data-theme="light"] .term-body{color:#3f3f46}
+  .term-body .p{color:var(--accent)}
+  .term-body .dim{color:var(--muted)}
+  .tline{white-space:pre-wrap;min-height:1.6em}
+  .t-caret::after{content:"▋";color:var(--accent);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .whoami{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted)}
+  .whoami .p{color:var(--accent)}
+  .intro-para{color:var(--muted);font-size:.95rem;margin-top:1rem;max-width:46ch}
+  .intro-para em{color:var(--accent);font-style:italic}
+  .decrypt-line{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);margin-top:.8rem}
+  .decrypt-line .p{color:var(--accent)}
+  .cta-row{display:flex;gap:.85rem;margin-top:1.6rem;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.25rem;border-radius:.5rem;font-weight:600;font-size:.9rem;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:'Inter',sans-serif}
+  .btn-primary{background:var(--accent);color:#09090b}
+  .btn-primary:hover{background:var(--accent-bright)}
+  .btn-outline{border-color:var(--border);color:var(--fg)}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* stats — Subscrr big-number strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-top:2.4rem;padding-top:2rem;border-top:1px solid var(--border)}
+  @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{border-left:1px solid var(--border);padding-left:1rem}
+  .stat-num{font-family:var(--display);font-size:clamp(2rem,4.4vw,3rem);line-height:1;color:var(--fg)}
+  .stat-num .plus{color:var(--accent)}
+  .stat-label{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+
+  /* audit timeline */
+  .audit{margin-top:2.2rem;border-left:1px solid var(--border);padding-left:1.6rem;display:flex;flex-direction:column;gap:2.2rem}
+  .audit-item{position:relative}
+  .audit-item::before{content:"";position:absolute;left:calc(-1.6rem - .26rem);top:.45rem;width:.52rem;height:.52rem;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(16,185,129,.5)}
+  .audit-date{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.08em}
+  .audit-role{font-family:var(--display);font-size:clamp(1.2rem,2.4vw,1.6rem);text-transform:uppercase;letter-spacing:.01em;margin-top:.25rem}
+  .audit-org{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted);margin-top:.1rem}
+  .audit-desc{font-size:.9rem;color:var(--muted);margin-top:.5rem;max-width:56ch}
+  .audit-refs{margin-top:.7rem;display:flex;flex-wrap:wrap;gap:.4rem}
+  .audit-ref{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--accent);border:1px solid rgba(16,185,129,.35);border-radius:.25rem;padding:.18rem .55rem}
+  .audit-ref.dim{color:var(--muted);border-color:var(--border)}
+
+  /* cards */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:2rem}
+  @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:.65rem;padding:1.5rem}
+  .card h3{font-family:var(--display);font-size:1.35rem;text-transform:uppercase;letter-spacing:.01em;margin-top:.5rem;font-weight:400}
+  .card p{font-size:.88rem;color:var(--muted);margin-top:.4rem}
+  .card .meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:rgba(52,211,153,.9);border:1px solid rgba(6,78,59,.5);border-radius:.25rem;padding:.15rem .5rem}
+  .ev-lock{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted);letter-spacing:.08em}
+  .ev-lock::before{content:"🔒 ";font-size:.7rem;filter:grayscale(1) opacity(.7)}
+  .link-u{position:relative;color:var(--accent);text-decoration:none;font-size:.85rem}
+  .link-u::after{content:"";position:absolute;left:0;bottom:-2px;width:100%;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.2,.8,.3,1)}
+  .link-u:hover::after{transform:scaleX(1);transform-origin:left}
+
+  /* evervault glow */
+  .evervault{position:relative;overflow:hidden}
+  .evervault::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--gx,50%) var(--gy,50%),rgba(16,185,129,.7),rgba(16,185,129,.12) 55%,transparent 75%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+  .evervault:hover::after{opacity:1}
+  @media (prefers-reduced-motion: reduce){.evervault::after{opacity:0!important}}
+
+  /* skills */
+  .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
+  @media(max-width:900px){.three-col{grid-template-columns:1fr}}
+  .group-name{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+  .chip{border:1px solid var(--border);background:var(--card);border-radius:.3rem;padding:.32rem .7rem;font-size:.78rem;color:var(--fg);transition:border-color .2s,color .2s}
+  .chip:hover{border-color:rgba(16,185,129,.5);color:var(--accent)}
+
+  /* contact */
+  .contact-list{display:flex;flex-direction:column;gap:.6rem;font-size:.92rem}
+  .contact-list .k{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.8rem;display:inline-block;width:5.5rem}
+  .contact-list a{color:var(--fg);text-decoration:none}
+  .contact-list a:hover{color:var(--accent)}
+  .form-field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+  .form-field label{font-size:.84rem;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em}
+  .form-field input,.form-field textarea{background:var(--card);border:1px solid var(--border);border-radius:.4rem;padding:.6rem .8rem;color:var(--fg);font-size:.9rem;font-family:inherit}
+  .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(16,185,129,.4)}
+  .honeypot{position:absolute;left:-9999px;opacity:0}
+
+  /* footer */
+  .footer{border-top:1px solid var(--border);padding:2.4rem 0;margin-top:2rem}
+  .footer-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.84rem;color:var(--muted)}
+  .footer a{color:var(--muted);text-decoration:none}
+  .footer a:hover{color:var(--accent)}
+
+  /* chrome */
+  .grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain-shift 7s steps(10) infinite}
+  @keyframes grain-shift{0%,100%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-4%)}60%{transform:translate(-3%,-2%)}80%{transform:translate(4%,4%)}}
+  @media (prefers-reduced-motion: reduce){.grain{animation:none}}
+  #scroll-progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:120;transition:width .1s linear}
+  .editbar{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:150;display:flex;gap:.45rem;align-items:center;padding:.5rem .7rem;background:rgba(16,16,18,.94);border:1px solid var(--border);border-radius:.75rem;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,.5);font-size:.8rem}
+  html[data-theme="light"] .editbar{background:rgba(255,255,255,.94)}
+  .editbar .sep{width:1px;height:1.2rem;background:var(--border);margin:0 .3rem}
+  .editbar button{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:.4rem;padding:.3rem .65rem;font-size:.78rem;font-family:'JetBrains Mono',monospace;cursor:pointer}
+  .editbar button:hover{border-color:var(--accent);color:var(--accent)}
+  .editbar .status{color:var(--muted);font-size:.72rem;font-family:'JetBrains Mono',monospace}
+  .editbar a{color:var(--muted);font-size:.75rem;text-decoration:none;font-family:'JetBrains Mono',monospace}
+  .editbar a:hover{color:var(--accent)}
+  .toast{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:201;background:var(--card);border:1px solid rgba(16,185,129,.5);color:var(--fg);border-radius:.6rem;padding:.7rem 1.2rem;font-size:.85rem;box-shadow:0 8px 30px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div class="grain"></div>
+
+<div class="editbar">
+  <a href="/wireframe-v2.html" title="Wireframe v2">← v2</a>
+  <span class="sep"></span>
+  <button onclick="saveHtml()">💾 Save HTML</button>
+  <button onclick="exportJson()">⇩ Export JSON</button>
+  <button onclick="resetEdits()">⟲ Reset</button>
+  <span class="status" id="status">autosave on</span>
+</div>
+<div class="toast" id="toast">✎ Click any text to edit it — changes autosave to this browser.</div>
+
+<!-- ======== HERO (Loop × Subscrr) ======== -->
+<section class="hero">
+  <div class="blobs"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></div>
+  <div class="aurora"></div>
+  <div class="dots"></div>
+  <div class="grid-bg"></div><div class="spot"></div>
+  <span class="beam bm1"></span><span class="beam bm2"></span><span class="beam bm3"></span>
+  <span class="beam v vm1"></span><span class="beam v vm2"></span>
+  <div class="scanline"></div>
+
+  <!-- corner nav -->
+  <nav class="corner-nav">
+    <div class="cn-brand"><span class="hl" contenteditable data-ed="cn-brand">shreyash</span><span contenteditable data-ed="cn-brand2">@portfolio</span></div>
+    <ul class="cn-menu">
+      <li><a href="#about"><span class="n" contenteditable data-ed="cn-1">01.</span><span contenteditable data-ed="cn-1-l">about</span></a></li>
+      <li><a href="#experience"><span class="n" contenteditable data-ed="cn-2">02.</span><span contenteditable data-ed="cn-2-l">experience</span></a></li>
+      <li><a href="#projects"><span class="n" contenteditable data-ed="cn-3">03.</span><span contenteditable data-ed="cn-3-l">projects</span></a></li>
+      <li><a href="#skills"><span class="n" contenteditable data-ed="cn-4">04.</span><span contenteditable data-ed="cn-4-l">skills</span></a></li>
+      <li><a href="#contact"><span class="n" contenteditable data-ed="cn-5">05.</span><span contenteditable data-ed="cn-5-l">contact</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- edge rails: LIST/GALLERY + LIGHT/DARK/SYSTEM -->
+  <div class="edge-left">
+    <a href="#projects" contenteditable data-ed="edge-1">■ projects</a>
+    <a href="#experience" contenteditable data-ed="edge-2">experience</a>
+    <a href="#about" contenteditable data-ed="edge-3">about</a>
+    <a href="#contact" contenteditable data-ed="edge-4">contact</a>
+  </div>
+  <div class="edge-right">
+    <button class="on" data-mode="dark"><span class="sq"></span><span contenteditable data-ed="mode-dark">dark</span></button>
+    <button data-mode="light"><span class="sq"></span><span contenteditable data-ed="mode-light">light</span></button>
+    <button data-mode="system"><span class="sq"></span><span contenteditable data-ed="mode-system">system</span></button>
+  </div>
+
+  <!-- giant stacked display -->
+  <div class="stack">
+    <div class="stack-line outline" contenteditable data-ed="stack-1">shreyash</div>
+    <div class="stack-line" contenteditable data-ed="stack-2">tirpude</div>
+    <div class="stack-line dim" contenteditable data-ed="stack-3">application security</div>
+  </div>
+
+  <!-- bottom: statement + scroll cue -->
+  <div class="hero-bottom">
+    <p class="statement" contenteditable data-ed="statement">
+      <span class="br">I find what your stack</span>
+      <span class="br">is <em>hiding</em>. Then I <span class="dim">help fix it</span>.</span>
+    </p>
+    <div class="scroll-cue"><span class="tri"></span><span contenteditable data-ed="scroll-cue">scroll</span></div>
+  </div>
+
+  <!-- Loop client marquee -->
+  <div class="client-marquee" aria-hidden="true">
+    <div class="client-marquee-track">
+      <span class="solid">apple hof</span><span class="hl">hackerone</span><span>web appsec</span><span class="solid">owasp</span><span class="hl">burp suite</span><span>api security</span><span class="solid">threat modeling</span><span class="hl">cve</span>
+      <span class="solid">apple hof</span><span class="hl">hackerone</span><span>web appsec</span><span class="solid">owasp</span><span class="hl">burp suite</span><span>api security</span><span class="solid">threat modeling</span><span class="hl">cve</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======== ABOUT ======== -->
+<section id="about">
+  <div class="container" data-reveal>
+    <div class="sec-head">
+      <span class="sec-num" contenteditable data-ed="about-num">01.</span>
+      <span class="sec-eyebrow" contenteditable data-ed="about-eyebrow">overview</span>
+    </div>
+    <h2 class="section-title"><span class="br" contenteditable data-ed="about-t1">Security engineer,</span><span class="br out" contenteditable data-ed="about-t2">proof not adjectives</span></h2>
+    <p class="sub" contenteditable data-ed="about-sub">2+ yrs industry (HERE Technology) · 3+ yrs bug bounty (HackerOne) · Apple Hall of Fame 2024 · Bentley reward.</p>
+    <div class="intro-grid">
+      <div>
+        <div class="whoami"><span class="p">$</span> <span contenteditable data-ed="about-whoami">whoami --verbose</span></div>
+        <p class="intro-para" contenteditable data-ed="about-p1">Security-focused software engineer with <em>2+ years in industry</em> (HERE Technology) and <em>3+ years in bug bounty</em> (HackerOne). I break things responsibly, then help fix them.</p>
+        <p class="intro-para" contenteditable data-ed="about-p2">Apple Hall of Fame 2024, Bentley Systems reward, and a steady stream of valid reports. OWASP Top 10 / ASVS, SAST/DAST, Burp Suite, AWS security.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contact"><span contenteditable data-ed="about-cta-1">Download Resume</span></a>
+          <a class="btn btn-outline" href="#experience"><span contenteditable data-ed="about-cta-2">View Audit Log ↓</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="term">
+          <div class="term-bar">
+            <span class="dot" style="background:#f87171"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#34d399"></span>
+            <span class="ttl" contenteditable data-ed="term-title">shreyash@portfolio: ~/security</span>
+          </div>
+          <div class="term-body" id="term-body">
+            <div class="tline" data-ed="term-whoami-cmd"><span class="p">$</span> whoami</div>
+            <div class="tline" data-ed="term-whoami-out">→ shreyash — appsec engineer / bug bounty researcher</div>
+            <div class="tline" data-ed="term-cat-cmd" style="margin-top:.5rem"><span class="p">$</span> cat highlights</div>
+            <div class="tline dim" data-ed="term-hl-1">• Apple Hall of Fame 2024 — Apple Security</div>
+            <div class="tline dim" data-ed="term-hl-2">• Bentley Systems Reward — 2023</div>
+            <div class="tline dim" data-ed="term-hl-3">• HackerOne researcher — 2022 → present</div>
+            <div class="tline" id="term-caret"><span class="p">$</span> <span class="t-caret"></span></div>
+          </div>
+        </div>
+        <p class="decrypt-line"><span class="p">$</span> <span class="decrypt" data-text="access granted — 0x hall-of-fame 2024" aria-label="access granted — 0x hall-of-fame 2024"></span></p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-num"><span class="count" data-count="3">0</span><span class="plus">+</span></div><div class="stat-label" contenteditable data-ed="stat-1">years bug bounty</div></div>
+      <div class="stat"><div class="stat-num"><span class="count" data-count="2">0</span><span class="plus">+</span></div><div class="stat-label" contenteditable data-ed="stat-2">years industry appsec</div></div>
+      <div class="stat"><div class="stat-num"><span class="count" data-count="5">0</span></div><div class="stat-label" contenteditable data-ed="stat-3">programs / advisories</div></div>
+      <div class="stat"><div class="stat-num"><span class="count" data-count="100">0</span><span class="plus">%</span></div><div class="stat-label" contenteditable data-ed="stat-4">responsible disclosure</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== EXPERIENCE ======== -->
+<section id="experience">
+  <div class="container" data-reveal>
+    <div class="sec-head">
+      <span class="sec-num" contenteditable data-ed="xp-num">02.</span>
+      <span class="sec-eyebrow" contenteditable data-ed="xp-eyebrow">the audit log</span>
+    </div>
+    <h2 class="section-title"><span class="br" contenteditable data-ed="xp-t1">Where I've</span><span class="br hl" contenteditable data-ed="xp-t2">worked.</span></h2>
+    <p class="sub" contenteditable data-ed="xp-sub">Dated evidence, reverse-chronological. Each entry links where applicable.</p>
+    <div class="audit">
+      <div class="audit-item">
+        <div class="audit-date" contenteditable data-ed="xp-1-date">2024 — PRESENT</div>
+        <div class="audit-role" contenteditable data-ed="xp-1-role">Software Engineer II — Security &amp; AI</div>
+        <div class="audit-org" contenteditable data-ed="xp-1-org">HERE Technology</div>
+        <p class="audit-desc" contenteditable data-ed="xp-1-desc">Embedded security in the SDLC: threat modeling, code review, SAST/DAST pipelines against OWASP Top 10 and ASVS. Secure-by-design at the security + AI intersection.</p>
+        <div class="audit-refs"><span class="audit-ref" contenteditable data-ed="xp-1-t1">threat modeling</span><span class="audit-ref" contenteditable data-ed="xp-1-t2">sast · dast</span><span class="audit-ref dim" contenteditable data-ed="xp-1-t3">owasp · asvs</span></div>
+      </div>
+      <div class="audit-item">
+        <div class="audit-date" contenteditable data-ed="xp-2-date">2022 — PRESENT</div>
+        <div class="audit-role" contenteditable data-ed="xp-2-role">Independent Security Researcher</div>
+        <div class="audit-org" contenteditable data-ed="xp-2-org">HackerOne · Apple · Bentley Systems</div>
+        <p class="audit-desc" contenteditable data-ed="xp-2-desc">3+ years of bug bounty across web, mobile, and API programs. Apple Hall of Fame 2024. Bentley Systems reward. Burp Suite, recon, OWASP Top 10 exploitation.</p>
+        <div class="audit-refs"><span class="audit-ref" contenteditable data-ed="xp-2-t1">apple hof 2024</span><span class="audit-ref" contenteditable data-ed="xp-2-t2">bentley reward</span><span class="audit-ref dim" contenteditable data-ed="xp-2-t3">web · mobile · api</span></div>
+      </div>
+      <div class="audit-item">
+        <div class="audit-date" contenteditable data-ed="xp-3-date">2020 — 2024</div>
+        <div class="audit-role" contenteditable data-ed="xp-3-role">B.Tech, Electronics Engineering (Minor: Comp Eng)</div>
+        <div class="audit-org" contenteditable data-ed="xp-3-org">Sardar Patel Institute of Technology</div>
+        <p class="audit-desc" contenteditable data-ed="xp-3-desc">Founded the security focus here — first CTFs, first disclosures, the shift into bug bounty.</p>
+        <div class="audit-refs"><span class="audit-ref dim" contenteditable data-ed="xp-3-t1">ctf</span><span class="audit-ref dim" contenteditable data-ed="xp-3-t2">disclosure</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== PROJECTS ======== -->
+<section id="projects">
+  <div class="container" data-reveal>
+    <div class="sec-head">
+      <span class="sec-num" contenteditable data-ed="pr-num">03.</span>
+      <span class="sec-eyebrow" contenteditable data-ed="pr-eyebrow">selected builds</span>
+    </div>
+    <h2 class="section-title"><span class="br" contenteditable data-ed="pr-t1">Things I've</span><span class="br out" contenteditable data-ed="pr-t2">built.</span></h2>
+    <p class="sub" contenteditable data-ed="pr-sub">Hover the titles to decrypt them.</p>
+    <div class="two-col">
+      <div class="card evervault">
+        <div class="ev-lock" contenteditable data-ed="pr-1-lock">encrypted</div>
+        <div class="meta" style="margin-top:.5rem" contenteditable data-ed="pr-1-path">~/projects/legalese-to-simplese</div>
+        <h3><span class="decrypt ev-title" data-text="Legalese-to-Simplese">Legalese-to-Simplese</span></h3>
+        <p contenteditable data-ed="pr-1-desc">Legal text simplification tool. Top 5 at Elastic Hackathon. Search-driven pipeline over legal docs.</p>
+        <div class="tags"><span class="tag" contenteditable data-ed="pr-1-t1">Elastic</span><span class="tag" contenteditable data-ed="pr-1-t2">NLP</span><span class="tag" contenteditable data-ed="pr-1-t3">Hackathon</span></div>
+        <p style="margin-top:1rem"><a class="link-u" href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="pr-1-link">View on GitHub →</a></p>
+      </div>
+      <div class="card evervault">
+        <div class="ev-lock" contenteditable data-ed="pr-2-lock">encrypted</div>
+        <div class="meta" style="margin-top:.5rem" contenteditable data-ed="pr-2-path">~/projects/borderlessbiz</div>
+        <h3><span class="decrypt ev-title" data-text="BorderlessBiz">BorderlessBiz</span></h3>
+        <p contenteditable data-ed="pr-2-desc">Cross-border business platform. Top 20 at Amazon Smbhav. Enables small businesses to go global.</p>
+        <div class="tags"><span class="tag" contenteditable data-ed="pr-2-t1">Amazon Smbhav</span><span class="tag" contenteditable data-ed="pr-2-t2">Product</span><span class="tag" contenteditable data-ed="pr-2-t3">Full-stack</span></div>
+        <p style="margin-top:1rem"><a class="link-u" href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="pr-2-link">View on GitHub →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== SKILLS ======== -->
+<section id="skills">
+  <div class="container" data-reveal>
+    <div class="sec-head">
+      <span class="sec-num" contenteditable data-ed="sk-num">04.</span>
+      <span class="sec-eyebrow" contenteditable data-ed="sk-eyebrow">the toolbox</span>
+    </div>
+    <h2 class="section-title"><span class="br hl" contenteditable data-ed="sk-t1">Skills,</span><span class="br" contenteditable data-ed="sk-t2">grouped.</span></h2>
+    <p class="sub" contenteditable data-ed="sk-sub">Five areas, one set of fundamentals.</p>
+    <div class="three-col">
+      <div class="card"><div class="group-name" contenteditable data-ed="sk-g1">AppSec &amp; Pentesting</div><div class="chips"><span class="chip" contenteditable data-ed="sk-g1-c1">OWASP Top 10</span><span class="chip" contenteditable data-ed="sk-g1-c2">ASVS</span><span class="chip" contenteditable data-ed="sk-g1-c3">Burp Suite</span><span class="chip" contenteditable data-ed="sk-g1-c4">API Security</span><span class="chip" contenteditable data-ed="sk-g1-c5">Mobile Security</span></div></div>
+      <div class="card"><div class="group-name" contenteditable data-ed="sk-g2">Frameworks</div><div class="chips"><span class="chip" contenteditable data-ed="sk-g2-c1">SAST</span><span class="chip" contenteditable data-ed="sk-g2-c2">DAST</span><span class="chip" contenteditable data-ed="sk-g2-c3">Threat Modeling</span><span class="chip" contenteditable data-ed="sk-g2-c4">Secure SDLC</span></div></div>
+      <div class="card"><div class="group-name" contenteditable data-ed="sk-g3">AWS Security</div><div class="chips"><span class="chip" contenteditable data-ed="sk-g3-c1">IAM</span><span class="chip" contenteditable data-ed="sk-g3-c2">KMS</span><span class="chip" contenteditable data-ed="sk-g3-c3">CloudTrail</span><span class="chip" contenteditable data-ed="sk-g3-c4">GuardDuty</span></div></div>
+      <div class="card"><div class="group-name" contenteditable data-ed="sk-g4">Languages &amp; Tools</div><div class="chips"><span class="chip" contenteditable data-ed="sk-g4-c1">Python</span><span class="chip" contenteditable data-ed="sk-g4-c2">JS / TS</span><span class="chip" contenteditable data-ed="sk-g4-c3">Go</span><span class="chip" contenteditable data-ed="sk-g4-c4">Bash</span><span class="chip" contenteditable data-ed="sk-g4-c5">Docker</span></div></div>
+      <div class="card"><div class="group-name" contenteditable data-ed="sk-g5">Protocols &amp; Auth</div><div class="chips"><span class="chip" contenteditable data-ed="sk-g5-c1">OAuth 2.0</span><span class="chip" contenteditable data-ed="sk-g5-c2">OIDC</span><span class="chip" contenteditable data-ed="sk-g5-c3">JWT</span><span class="chip" contenteditable data-ed="sk-g5-c4">TLS</span><span class="chip" contenteditable data-ed="sk-g5-c5">SSRF</span><span class="chip" contenteditable data-ed="sk-g5-c6">IDOR</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== CONTACT ======== -->
+<section id="contact">
+  <div class="container" data-reveal>
+    <div class="sec-head">
+      <span class="sec-num" contenteditable data-ed="ct-num">05.</span>
+      <span class="sec-eyebrow" contenteditable data-ed="ct-eyebrow">contact</span>
+    </div>
+    <h2 class="section-title"><span class="br" contenteditable data-ed="ct-t1">Open to security</span><span class="br hl" contenteditable data-ed="ct-t2">roles &amp; collabs.</span></h2>
+    <p class="sub" contenteditable data-ed="ct-sub">AppSec roles, bounty collabs, or just to talk shop.</p>
+    <div class="two-col" style="align-items:start">
+      <div class="contact-list">
+        <div><span class="k" contenteditable data-ed="ct-k-email">email:</span><a href="mailto:tshreyash2002@gmail.com" contenteditable data-ed="ct-v-email">tshreyash2002@gmail.com</a></div>
+        <div><span class="k" contenteditable data-ed="ct-k-phone">phone:</span><a href="tel:+919356880446" contenteditable data-ed="ct-v-phone">+91 93568 80446</a></div>
+        <div><span class="k" contenteditable data-ed="ct-k-loc">location:</span><span contenteditable data-ed="ct-v-loc">Mumbai, India</span></div>
+        <div><span class="k" contenteditable data-ed="ct-k-gh">github:</span><a href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ct-v-gh">shreyashtirpude</a></div>
+        <div><span class="k" contenteditable data-ed="ct-k-li">linkedin:</span><a href="https://www.linkedin.com/in/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ct-v-li">shreyashtirpude</a></div>
+        <div><span class="k" contenteditable data-ed="ct-k-h1">hackerone:</span><a href="https://hackerone.com/shreyash" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ct-v-h1">shreyash</a></div>
+        <p class="mono" style="color:var(--muted);font-size:.74rem;margin-top:.6rem" contenteditable data-ed="ct-note">// pgp available on request · response &lt; 48h</p>
+      </div>
+      <div class="card">
+        <form onsubmit="event.preventDefault();var f=this;window.location.href='mailto:tshreyash2002@gmail.com?subject='+encodeURIComponent('Portfolio contact — '+(f.name.value||''))+'&body='+encodeURIComponent((f.message.value||'')+'\n\n— '+(f.name.value||'')+'\n'+(f.email.value||''));f.reset();showToast('✓ opening your mail client');return false">
+          <div class="form-field"><label for="wf-name" contenteditable data-ed="ct-l-name">Name</label><input id="wf-name" name="name" type="text" required></div>
+          <div class="form-field"><label for="wf-email" contenteditable data-ed="ct-l-email">Email</label><input id="wf-email" name="email" type="email" required></div>
+          <div class="form-field"><label for="wf-msg" contenteditable data-ed="ct-l-msg">Message</label><textarea id="wf-msg" name="message" rows="4" required></textarea></div>
+          <div class="honeypot"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn btn-primary" type="submit" contenteditable data-ed="ct-submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span contenteditable data-ed="ft-copy">© 2026 Shreyash Tirpude — wireframe v3 · editorial display</span>
+      <span style="display:flex;gap:1.2rem">
+        <a href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ft-gh">GitHub</a>
+        <a href="https://www.linkedin.com/in/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ft-li">LinkedIn</a>
+        <a href="https://hackerone.com/shreyash" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ft-h1">HackerOne</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY = "portfolio-wireframe-v3-edits";
+  var statusEl = document.getElementById("status");
+  var toastEl = document.getElementById("toast");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function(){ toastEl.classList.remove("show"); }, 2600);
+  }
+  window.showToast = showToast;
+
+  /* ---------- theme toggle (Loop LIGHT/DARK/SYSTEM) ---------- */
+  var root = document.documentElement;
+  var modeBtns = document.querySelectorAll(".edge-right button");
+  function applyMode(mode){
+    var cur = mode === "system"
+      ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : mode;
+    root.setAttribute("data-theme", cur);
+    modeBtns.forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-mode") === mode); });
+    try { localStorage.setItem("wf3-theme", mode); } catch(e){}
+  }
+  modeBtns.forEach(function(b){
+    b.addEventListener("click", function(){ applyMode(b.getAttribute("data-mode")); });
+  });
+  var savedTheme = "dark";
+  try { savedTheme = localStorage.getItem("wf3-theme") || "dark"; } catch(e){}
+  applyMode(savedTheme);
+
+  /* ---------- scroll progress ---------- */
+  var prog = document.getElementById("scroll-progress");
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- reveal ---------- */
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* ---------- typed terminal ---------- */
+  var hadTermEdits = false;
+  try { hadTermEdits = Object.keys(JSON.parse(localStorage.getItem(KEY) || "{}")).some(function(k){ return k.indexOf("term-") === 0; }); } catch(e){}
+  if (!reduceMotion && !hadTermEdits) {
+    var body = document.getElementById("term-body");
+    var caret = document.getElementById("term-caret");
+    var lines = [
+      { sel: '[data-ed="term-whoami-cmd"]', text: "$ whoami" },
+      { sel: '[data-ed="term-whoami-out"]', text: "→ shreyash — appsec engineer / bug bounty researcher" },
+      { sel: '[data-ed="term-cat-cmd"]', text: "$ cat highlights" },
+      { sel: '[data-ed="term-hl-1"]', text: "• Apple Hall of Fame 2024 — Apple Security" },
+      { sel: '[data-ed="term-hl-2"]', text: "• Bentley Systems Reward — 2023" },
+      { sel: '[data-ed="term-hl-3"]', text: "• HackerOne researcher — 2022 → present" },
+      { sel: null, text: "$ " }
+    ];
+    var li = 0, ci = 0;
+    function typeLine(){
+      if (li >= lines.length) return;
+      var L = lines[li];
+      var el = L.sel ? body.querySelector(L.sel) : caret;
+      if (!el) { li++; typeLine(); return; }
+      if (ci === 0 && L.sel) el.innerHTML = "";
+      var target = L.text;
+      if (L.text === "$ ") { el.innerHTML = '<span class="p">$</span> <span class="t-caret"></span>'; li++; ci = 0; setTimeout(typeLine, 900); return; }
+      ci++;
+      if (L.text.indexOf("$ ") === 0) el.innerHTML = '<span class="p">$</span> ' + target.slice(2, ci > 2 ? ci : 2);
+      else el.textContent = target.slice(0, ci);
+      if (ci < target.length) setTimeout(typeLine, 16);
+      else { li++; ci = 0; setTimeout(typeLine, 260); }
+    }
+    caret.style.display = "none";
+    setTimeout(typeLine, 600);
+  }
+
+  /* ---------- decrypt text ---------- */
+  var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#%&@$?/";
+  function scrambleOnce(el, finalText, speed){
+    var frames = Math.max(4, Math.min(14, Math.round(finalText.length / 2)));
+    var f = 0;
+    function frame(){
+      if (f >= frames) { el.textContent = finalText; return; }
+      f++;
+      var resolved = Math.floor(finalText.length * (f / frames));
+      var out = "";
+      for (var i = 0; i < finalText.length; i++) {
+        var ch = finalText[i];
+        if (ch === " ") out += " ";
+        else if (i < resolved) out += ch;
+        else out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      }
+      el.textContent = out;
+      setTimeout(frame, speed);
+    }
+    frame();
+  }
+  var heroDecrypt = document.querySelector(".decrypt");
+  if (heroDecrypt) {
+    if (reduceMotion) heroDecrypt.textContent = heroDecrypt.getAttribute("data-text");
+    else setTimeout(function(){ scrambleOnce(heroDecrypt, heroDecrypt.getAttribute("data-text"), 34); }, 2600);
+  }
+  document.querySelectorAll(".evervault .ev-title").forEach(function(el){
+    if (reduceMotion) return;
+    var original = el.getAttribute("data-text") || el.textContent;
+    el.addEventListener("mouseenter", function(){ scrambleOnce(el, original, 22); });
+  });
+
+  /* ---------- evervault glow cursor ---------- */
+  document.querySelectorAll(".evervault").forEach(function(c){
+    c.addEventListener("mousemove", function(e){
+      var r = c.getBoundingClientRect();
+      c.style.setProperty("--gx", (e.clientX - r.left) + "px");
+      c.style.setProperty("--gy", (e.clientY - r.top) + "px");
+    });
+  });
+
+  /* ---------- counters ---------- */
+  var counters = document.querySelectorAll(".count");
+  if (counters.length && !reduceMotion) {
+    var cObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var el = en.target; cObs.unobserve(el);
+        var target = parseInt(el.getAttribute("data-count"), 10);
+        var start = null, dur = 1100;
+        function step(ts){
+          if (!start) start = ts;
+          var pr = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - pr, 3);
+          el.textContent = Math.round(eased * target);
+          if (pr < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(function(c){ cObs.observe(c); });
+  }
+
+  /* ---------- edit autosave ---------- */
+  function collect(){
+    var m = {};
+    document.querySelectorAll("[data-ed]").forEach(function(el){ m[el.getAttribute("data-ed")] = el.innerHTML; });
+    return m;
+  }
+  function apply(m){
+    document.querySelectorAll("[data-ed]").forEach(function(el){
+      var k = el.getAttribute("data-ed");
+      if (m[k] != null) el.innerHTML = m[k];
+    });
+  }
+  function saveEdits(){
+    try { localStorage.setItem(KEY, JSON.stringify(collect())); } catch(e){}
+    statusEl.textContent = "✓ autosaved " + new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  }
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    if (Object.keys(saved).length) apply(saved);
+  } catch(e){}
+  document.addEventListener("input", function(e){
+    if (e.target.closest && e.target.closest("[contenteditable]")) saveEdits();
+  });
+  document.addEventListener("focusin", function(e){
+    if (e.target.closest && e.target.closest("[contenteditable]")) statusEl.textContent = "editing…";
+  });
+  document.addEventListener("keydown", function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s"){ e.preventDefault(); saveHtml(); }
+  });
+
+  window.saveHtml = function(){
+    var html = "<!doctype html>\n" + document.documentElement.outerHTML;
+    var blob = new Blob([html], {type:"text/html"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "portfolio-wireframe-v3-edited.html";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    statusEl.textContent = "✓ html saved";
+    showToast("💾 Saved portfolio-wireframe-v3-edited.html — edits included");
+  };
+  window.exportJson = function(){
+    var out = {};
+    document.querySelectorAll("[data-ed]").forEach(function(el){ out[el.getAttribute("data-ed")] = el.innerText.trim(); });
+    var blob = new Blob([JSON.stringify(out, null, 2)], {type:"application/json"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "wireframe-v3-content.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    statusEl.textContent = "✓ json exported";
+    showToast("⇩ wireframe-v3-content.json — I can port this into the site");
+  };
+  window.resetEdits = function(){
+    if (!confirm("Reset all wireframe v3 edits back to default?")) return;
+    localStorage.removeItem(KEY);
+    location.reload();
+  };
+
+  setTimeout(function(){ showToast("✎ Click any text to edit it — autosaves to this browser."); }, 2000);
+})();
+</script>
+</body>
+</html>

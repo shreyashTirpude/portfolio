@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Design — Inspiration & Benchmark Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#09090b;--fg:#f4f4f5;--card:#101012;--border:#27272a;--muted:#a1a1aa;--accent:#10b981}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;line-height:1.6;padding-bottom:5rem}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .container{max-width:72rem;margin:0 auto;padding:0 1.5rem}
+  header{padding:2.5rem 0 1rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  h1{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-top:.4rem}
+  .sub{color:var(--muted);margin-top:.4rem;max-width:60ch}
+  h2{font-size:1.35rem;font-weight:600;margin:2.2rem 0 1rem;letter-spacing:-.01em}
+  .rank-row{display:flex;align-items:center;gap:.8rem;padding:.8rem 0;border-bottom:1px solid #1c1c1f;flex-wrap:wrap}
+  .rank-num{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--accent);min-width:2.2rem}
+  .rank-name{font-weight:600;min-width:11rem}
+  .tier{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;padding:.15rem .5rem;border-radius:.25rem;border:1px solid var(--border);color:var(--muted)}
+  .tier.t1{color:var(--accent);border-color:rgba(16,185,129,.4)}
+  .tier.t2{color:#a7f3d0;border-color:rgba(16,185,129,.25)}
+  .score{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)}
+  .note{color:var(--muted);font-size:.85rem;flex-basis:100%}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:1rem;margin-top:1rem}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.35rem}
+  .card .sec{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .card a{color:#e4e4e7;text-decoration:none;font-weight:500;font-size:.92rem}
+  .card a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+  .card .src{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)}
+  .card .why{font-size:.8rem;color:var(--muted)}
+  .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--accent);border:1px solid rgba(16,185,129,.35);border-radius:.25rem;padding:.1rem .4rem;margin-right:.3rem}
+  .rec{margin-top:2.5rem;background:var(--card);border:1px solid rgba(16,185,129,.3);border-radius:.6rem;padding:1.3rem 1.4rem}
+  .shots-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:1.2rem 0 1.8rem}
+  .shots-row figure{background:var(--card);border:1px solid var(--border);border-radius:.6rem;overflow:hidden}
+  .shots-row img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:top}
+  .shots-row figcaption{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);padding:.5rem .7rem}
+  .rec h3{font-size:1rem;margin-bottom:.5rem;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;font-size:.8rem}
+  .rec li{margin:.35rem 0 .35rem 1.2rem;color:#d4d4d8;font-size:.92rem}
+  .back{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);text-decoration:none}
+  .back:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="eyebrow">// inspiration · benchmark · samples</div>
+    <h1>Design reference board — Shreyash Tirpude portfolio</h1>
+    <p class="sub">Ranked against the resume brief: dark security/terminal persona, zinc-950 + emerald, bento highlights, timeline, projects grid, skill chips, contact form, Next.js + shadcn fit. Open each sample, pick what fits, then tell me which combos to wire into the editable wireframe. <a class="back" href="/wireframe.html">← back to wireframe</a></p>
+  </header>
+
+  <h2>Ranked libraries (benchmark)</h2>
+  <div class="rank-row"><span class="rank-num">01</span><span class="rank-name">Aceternity UI</span><span class="tier t1">tier 1 · primary</span><span class="score">fit 9.5/10 · motion dep · free single-file</span><span class="note">Literal Terminal + Spotlight + Bento + Timeline. Exact motif set for this portfolio.</span></div>
+  <div class="rank-row"><span class="rank-num">02</span><span class="rank-name">Shadcn Space</span><span class="tier t1">tier 1 · primary</span><span class="score">fit 9/10 · mixed deps · mostly free</span><span class="note">Only library with bento + timeline + portfolio blocks all free; 7 code-block/terminal variants.</span></div>
+  <div class="rank-row"><span class="rank-num">03</span><span class="rank-name">Cult UI</span><span class="tier t2">tier 2 · supplement</span><span class="score">fit 8/10 · motion · no bento/timeline</span><span class="note">Terminal Animation, Grid Beam, LightBoard. Theme-native dark.</span></div>
+  <div class="rank-row"><span class="rank-num">04</span><span class="rank-name">BEUI</span><span class="tier t2">tier 2 · supplement</span><span class="score">fit 8/10 · heavy motion</span><span class="note">Built-in --neon emerald accent matches; Shader Background glow hero, terminal loaders.</span></div>
+  <div class="rank-row"><span class="rank-num">05</span><span class="rank-name">CodeFronts</span><span class="tier t2">tier 2 · supplement</span><span class="score">fit 7.5/10 · mostly Pro</span><span class="note">Every section exists (25 bento, timeline, code-block) but most blocks paywalled.</span></div>
+  <div class="rank-row"><span class="rank-num">06</span><span class="rank-name">UI Watermelon</span><span class="tier t2">tier 2 · supplement</span><span class="score">fit 7/10 · motion-heavy · free</span><span class="note">Bento-01/02, 43 heroes, contact ×7, career ×4. Vite-oriented, needs client adaptation.</span></div>
+  <div class="rank-row"><span class="rank-num">07</span><span class="rank-name">RareUI</span><span class="tier t2">tier 3 · pick-a-piece</span><span class="score">fit 6.5/10 · light</span><span class="note">Code Block (single-accent, auto-dark) = perfect terminal card; Fluid Orb glow accent.</span></div>
+  <div class="rank-row"><span class="rank-num">08</span><span class="rank-name">BagUI</span><span class="tier t2">tier 3 · pick-a-piece</span><span class="score">fit 6/10 · zero animation</span><span class="note">Navbar, contact, feature blocks. Dark auto via CSS vars. GSAP only on heroes.</span></div>
+  <div class="rank-row"><span class="rank-num">09</span><span class="rank-name">COSS UI</span><span class="tier t2">tier 3 · pick-a-piece</span><span class="score">fit 6/10 · lightest</span><span class="note">Best contact form (Zod-validated) + badges; wires JetBrains Mono. No blocks, no animation.</span></div>
+  <div class="rank-row"><span class="rank-num">10</span><span class="rank-name">Skiper UI</span><span class="tier t2">tier 4 · weak fit</span><span class="score">fit 5/10 · mostly Pro</span><span class="note">Good timeline + projects showcase but most components paywalled. Site is skiper-ui.com.</span></div>
+  <div class="rank-row"><span class="rank-num">11</span><span class="rank-name">Animmaster</span><span class="tier t2">tier 4 · weak fit</span><span class="score">fit 3/10 · paid zip</span><span class="note">Vanilla HTML/CSS/JS zip, not shadcn, no terminal/timeline/bento. Skip.</span></div>
+
+  <h2>Samples by section — verify these</h2>
+  <div class="grid">
+
+    <div class="card"><span class="sec">HERO · TERMINAL CARD</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/terminal">Aceternity — Terminal</a><span class="src">ui.aceternity.com</span><span class="why">Mac-style terminal with typed commands — hero centerpiece.</span></div>
+    <div class="card"><span class="sec">HERO · SPOTLIGHT</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/spotlight">Aceternity — Spotlight</a><span class="src">ui.aceternity.com</span><span class="why">Mouse-follow glow, pure Tailwind + keyframes.</span></div>
+    <div class="card"><span class="sec">HERO · TERMINAL CARD</span><a target="_blank" rel="noopener noreferrer" href="https://www.cult-ui.com/docs/components/terminal-animation">Cult UI — Terminal Animation</a><span class="src">cult-ui.com</span><span class="why">Typed command playback with tabbed scenarios.</span></div>
+    <div class="card"><span class="sec">HERO · TERMINAL CARD</span><a target="_blank" rel="noopener noreferrer" href="https://www.rareui.com/components/codeblock">RareUI — Code Block</a><span class="src">rareui.com</span><span class="why">Builds theme from one accent color; auto-dark.</span></div>
+    <div class="card"><span class="sec">HERO · TERMINAL CARD</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnspace.com/components/code-block">Shadcn Space — Code Block</a><span class="src">shadcnspace.com</span><span class="why">7 terminal variants, dark mode + copy.</span></div>
+    <div class="card"><span class="sec">HERO · GLOW BG</span><a target="_blank" rel="noopener noreferrer" href="https://beui.dev/components/motion/shader-background">BEUI — Shader Background</a><span class="src">beui.dev</span><span class="why">Canvas glow/mesh for hero backdrop.</span></div>
+
+    <div class="card"><span class="sec">HIGHLIGHTS · BENTO</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/bento-grid">Aceternity — Bento Grid</a><span class="src">ui.aceternity.com</span><span class="why">Signature bento for bug-bounty cards.</span></div>
+    <div class="card"><span class="sec">HIGHLIGHTS · BENTO</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnspace.com/blocks/marketing/bento-grid-section">Shadcn Space — Bento Grid Section</a><span class="src">shadcnspace.com</span><span class="why">Bento 01 free; 02/03 Pro.</span></div>
+    <div class="card"><span class="sec">HIGHLIGHTS · BENTO</span><a target="_blank" rel="noopener noreferrer" href="https://ui.watermelon.sh/block/bento-01">Watermelon — Bento-01</a><span class="src">ui.watermelon.sh</span><span class="why">Free bento block.</span></div>
+    <div class="card"><span class="sec">HIGHLIGHTS · BENTO</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnstudio.com/blocks/bento-grid/bento-grid">CodeFronts — Bento Grid</a><span class="src">shadcnstudio.com</span><span class="why">25 bento blocks (mostly Pro).</span></div>
+
+    <div class="card"><span class="sec">EXPERIENCE · TIMELINE</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/timeline">Aceternity — Timeline</a><span class="src">ui.aceternity.com</span><span class="why">Sticky header + scroll beam follow.</span></div>
+    <div class="card"><span class="sec">EXPERIENCE · TIMELINE</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnspace.com/blocks/marketing/timeline">Shadcn Space — Timeline</a><span class="src">shadcnspace.com</span><span class="why">3 free variants: vertical/interactive/horizontal.</span></div>
+    <div class="card"><span class="sec">EXPERIENCE · TIMELINE</span><a target="_blank" rel="noopener noreferrer" href="https://skiper-ui.com/v1/skiper74">Skiper — Timeline calendar</a><span class="src">skiper-ui.com</span><span class="why">Sticky-header date timeline.</span></div>
+    <div class="card"><span class="sec">EXPERIENCE · TIMELINE</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnstudio.com/blocks/marketing-ui/timeline-component">CodeFronts — Timeline</a><span class="src">shadcnstudio.com</span><span class="why">7 timeline blocks incl. company journey.</span></div>
+
+    <div class="card"><span class="sec">PROJECTS</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnspace.com/blocks/marketing/portfolio-section">Shadcn Space — Portfolio Section</a><span class="src">shadcnspace.com</span><span class="why">Clean portfolio grid, free.</span></div>
+    <div class="card"><span class="sec">PROJECTS</span><a target="_blank" rel="noopener noreferrer" href="https://skiper-ui.com/v1/skiper80">Skiper — Projects Showcase</a><span class="src">skiper-ui.com</span><span class="why">Hover titles, expandable detail, drag preview.</span></div>
+    <div class="card"><span class="sec">PROJECTS</span><a target="_blank" rel="noopener noreferrer" href="https://ui.watermelon.sh/block/career-1">Watermelon — Career 1</a><span class="src">ui.watermelon.sh</span><span class="why">Career/experience block.</span></div>
+
+    <div class="card"><span class="sec">CONTACT · FORM</span><a target="_blank" rel="noopener noreferrer" href="https://coss.com/ui/docs/components/form">COSS — Form (Zod)</a><span class="src">coss.com/ui</span><span class="why">Cleanest form foundation, Zod validation.</span></div>
+    <div class="card"><span class="sec">CONTACT · FORM</span><a target="_blank" rel="noopener noreferrer" href="https://bagui.vercel.app/blocks/contact">BagUI — Contact blocks</a><span class="src">bagui.vercel.app</span><span class="why">2 free contact blocks, no animation.</span></div>
+    <div class="card"><span class="sec">CONTACT · FORM</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnspace.com/blocks/marketing/contact-section">Shadcn Space — Contact Section</a><span class="src">shadcnspace.com</span><span class="why">Contact 01 free.</span></div>
+
+    <div class="card"><span class="sec">ATMOSPHERE</span><a target="_blank" rel="noopener noreferrer" href="https://www.cult-ui.com/docs/components/lightboard">Cult UI — LightBoard</a><span class="src">cult-ui.com</span><span class="why">Glowing dot-matrix board.</span></div>
+    <div class="card"><span class="sec">ATMOSPHERE</span><a target="_blank" rel="noopener noreferrer" href="https://www.cult-ui.com/docs/components/grid-beam">Cult UI — Grid Beam</a><span class="src">cult-ui.com</span><span class="why">Spotlight/beam grid background.</span></div>
+    <div class="card"><span class="sec">ATMOSPHERE</span><a target="_blank" rel="noopener noreferrer" href="https://www.rareui.com/components/fluidorb">RareUI — Fluid Orb</a><span class="src">rareui.com</span><span class="why">WebGL ambient orb accent.</span></div>
+  </div>
+
+  <h2>Dribbble + Awwwards — verified real sites (browser-inspected)</h2>
+  <p class="sub">Driven with a real Chromium (Playwright): visited each site, took screenshots, and inspected the JS/frameworks via page evaluate. Screenshots saved to /tmp/shots/sites/.</p>
+
+  <div class="shots-row">
+    <figure><img src="/reference-shots/pragadheesh-skip.png" alt="Pragadheesh Raj portfolio"><figcaption>spragadheeshraj.com — dark, GSAP, serif-italic</figcaption></figure>
+    <figure><img src="/reference-shots/sokolovski-pro--top.png" alt="Sokolovski portfolio"><figcaption>sokolovski.pro — light, minimal grid</figcaption></figure>
+    <figure><img src="/reference-shots/www-abhaysingh-in--top.png" alt="Abhay Singh portfolio"><figcaption>abhaysingh.in — Framer, illustration hero</figcaption></figure>
+    <figure><img src="/reference-shots/www-laurens-art--top.png" alt="Laurens art portfolio"><figcaption>laurens.art — Three.js WebGL</figcaption></figure>
+  </div>
+
+  <div class="card"><span class="sec">AWWWARDS · NOMINEE · DARK</span><a target="_blank" rel="noopener noreferrer" href="https://spragadheeshraj.com/">Pragadheesh Raj — spragadheeshraj.com</a><span class="src">GSAP + Lenis + ScrollTrigger · black, serif-italic + sans</span><span class="why">Bold "LOADING 95%" counter intro. Scroll animation math documented as "// UNDER THE HOOD" code comments — the exact terminal/technical storytelling pattern for an AppSec portfolio. Split-column hero: big serif italic statement + service grid.</span></div>
+  <div class="card"><span class="sec">AWWWARDS · NOMINEE · LIGHT</span><a target="_blank" rel="noopener noreferrer" href="https://sokolovski.pro/">Eugene Sokolovskiy — sokolovski.pro</a><span class="src">No framework detected · white, minimal grid</span><span class="why">Editorial contrast to dark: clean white grid, giant "ES®" monogram watermark, services columns. Great "less is more" reference.</span></div>
+  <div class="card"><span class="sec">AWWWARDS · NOMINEE · FRAMER</span><a target="_blank" rel="noopener noreferrer" href="https://www.abhaysingh.in/">Abhay Singh — abhaysingh.in</a><span class="src">Framer (meta generator "Framer 4d662f6") · white + blue</span><span class="why">Centered hero with line-art illustration, pill nav, "Design rescue for noteworthy brands". Reference for a personality-led, illustration-forward hero.</span></div>
+  <div class="card"><span class="sec">AWWWARDS · WEBGL</span><a target="_blank" rel="noopener noreferrer" href="https://www.laurens.art/">Laurens — Creative Technologist</a><span class="src">Vite + Three.js · black + blue</span><span class="why">Dark 3D hero (rock formation, fluid surface) with huge "063" typography. Reference for a WebGL creative-technologist direction.</span></div>
+  <div class="card"><span class="sec">DRIBBBLE · DARK PORTFOLIOS</span><a target="_blank" rel="noopener noreferrer" href="https://dribbble.com/search/dark-portfolio">Dribbble search — "dark-portfolio"</a><span class="src">Shots by Solt Wagner, Jay Cole®, Mara Bureau</span><span class="why">Dark grids with orange/purple accents, centered giant-type "Jay Cole®" hero, cinematic photo portfolios. Good mood-board source for dark layouts.</span></div>
+  <div class="card"><span class="sec">AWWWARDS · DARK COLLECTION</span><a target="_blank" rel="noopener noreferrer" href="https://www.awwwards.com/websites/dark/">Awwwards — dark websites collection</a><span class="src">Sukumar Swain, Dark Star Labs, Light in the Darkness</span><span class="why">Dark-theme winning sites: GSAP/Three.js scroll narratives, infinite scroll, parallax. Best ongoing source for dark portfolio motifs.</span></div>
+
+  <h2>What the browser inspection found (JS / components)</h2>
+  <div class="grid">
+    <div class="card"><span class="sec">STACK</span><span class="src">spragadheeshraj.com</span><span class="why"><b>GSAP + Lenis + ScrollTrigger</b> — smooth scroll + scroll-driven letter animations. The "code comment storytelling" is a pure HTML/CSS overlay, no lib needed.</span></div>
+    <div class="card"><span class="sec">STACK</span><span class="src">laurens.art</span><span class="why"><b>Vite + Three.js</b> WebGL canvas background. Heavier; only worth it if you want a real 3D hero.</span></div>
+    <div class="card"><span class="sec">STACK</span><span class="src">abhaysingh.in</span><span class="why"><b>Framer</b>-generated — not a hand-built stack. Reference the layout, not the tooling.</span></div>
+    <div class="card"><span class="sec">PATTERN</span><span class="src">all four sites</span><span class="why">Common threads: full-viewport hero, one dominant typeface + one accent, minimal nav, oversized loading counter, scroll-linked storytelling. None use a bento grid for highlights — that stays our differentiator.</span></div>
+  </div>
+
+  <h2>More UI options — dark/developer galleries (new research)</h2>
+  <p class="sub">Sourced from Dark Mode Design gallery + browser-inspected. Screenshots embedded below.</p>
+
+  <div class="shots-row">
+    <figure><img src="/reference-shots/www-mosambiswas-com-top.png" alt="Mosam Biswas portfolio"><figcaption>mosambiswas.com — dark editorial dev</figcaption></figure>
+    <figure><img src="/reference-shots/www-pablomiguez-dev-top.png" alt="Pablo Miguez portfolio"><figcaption>pablomiguez.dev — minimal DEV hero</figcaption></figure>
+  </div>
+
+  <div class="card"><span class="sec">RANK 1 · DARK EDITORIAL DEV</span><a target="_blank" rel="noopener noreferrer" href="https://www.mosambiswas.com">Mosam Biswas — mosambiswas.com</a><span class="src">no framework detected · black + cream, huge type</span><span class="why">Massive solid+outline name hero, metadata bar (live time + location + "PORTFOLIO · VOL. 06"), italic bio keywords, red "Open to work" status dot, "{ SCROLL }" indicator. The strongest fit for a security persona — swap the red status dot to emerald "0 open CVEs" or similar.</span></div>
+  <div class="card"><span class="sec">RANK 2 · MINIMAL DEV HERO</span><a target="_blank" rel="noopener noreferrer" href="https://www.pablomiguez.dev">Pablo Miguez — pablomiguez.dev</a><span class="src">Next.js · black, four-corner nav</span><span class="why">Full-screen black hero with giant "DEV" centered, name in top corners, "Portfolio / 2025" bottom. Ultra-minimal developer statement — great "make it bold and quiet" reference.</span></div>
+  <div class="card"><span class="sec">RANK 3 · DARK DEV-TOOLS</span><a target="_blank" rel="noopener noreferrer" href="https://betterstack.com">Better Stack — betterstack.com</a><span class="src">Vite · dark SaaS/dev-tools</span><span class="why">Dark, dense, product-led dev-tools aesthetic. Reference for how a security-adjacent brand handles dark hero + feature grids.</span></div>
+  <div class="card"><span class="sec">RANK 4 · DARK HARDWARE</span><a target="_blank" rel="noopener noreferrer" href="https://oxide.computer">Oxide Computer — oxide.computer</a><span class="src">no framework · dark hardware</span><span class="why">Dark, technical, engineering-led. Good for tone, less for portfolio layout.</span></div>
+  <div class="card"><span class="sec">GALLERY · DARK MODE DESIGN</span><a target="_blank" rel="noopener noreferrer" href="https://www.darkmodedesign.com">Dark Mode Design — darkmodedesign.com</a><span class="src">curated dark sites gallery</span><span class="why">Hand-picked dark-mode websites (frame.io, Better Stack, Oxide, Rasa). Best ongoing source for dark, dev/security-adjacent site inspiration.</span></div>
+  <div class="card"><span class="sec">RANK 5 · BEST FIT OVERALL</span><a target="_blank" rel="noopener noreferrer" href="https://www.mosambiswas.com">Verdict: Mosam Biswas direction</a><span class="src">map to security persona</span><span class="why">Adopt its editorial-dev hero (giant type + metadata bar + status dot + scroll indicator) but retheme to zinc-950 + emerald and terminal motifs. That beats a pure terminal-card hero for standing out.</span></div>
+
+  <h2>Security-engineer benchmark — not flashy, proof-first (new research)</h2>
+  <p class="sub">Researched from the security-portfolio guide (proof & clarity beat flashy design), a real security-engineer portfolio, the archetypal security-researcher site, and minimal-gallery picks. Browser-inspected.</p>
+
+  <div class="shots-row">
+    <figure><img src="/reference-shots/cyberfolio-io-u-EWG-top.png" alt="Ellan Wambugu security portfolio"><figcaption>cyberfolio.io/u/EWG — security engineer benchmark</figcaption></figure>
+    <figure><img src="/reference-shots/danielmiessler-com--top.png" alt="Daniel Miessler"><figcaption>danielmiessler.com — security researcher, light</figcaption></figure>
+    <figure><img src="/reference-shots/www-minwookshin-com--top.png" alt="Minwook Shin"><figcaption>minwookshin.com — brutalist text portfolio</figcaption></figure>
+  </div>
+
+  <div class="card"><span class="sec">RANK 1 · SECURITY-ENGINEER BENCHMARK</span><a target="_blank" rel="noopener noreferrer" href="https://cyberfolio.io/u/EWG">Ellan Wambugu — Senior Cloud &amp; Application Security Engineer</a><span class="src">dark navy/charcoal + one cyan accent · clean cards</span><span class="why">The closest peer to your role. Single-column centered, name + role + location hero, then "Certifications" and "Projects & Labs" as clean proof cards. Restrained, credible, zero flash. Map to zinc-950 + emerald: this is the model.</span></div>
+  <div class="card"><span class="sec">RANK 2 · SECURITY RESEARCHER · LIGHT</span><a target="_blank" rel="noopener noreferrer" href="https://danielmiessler.com/">Daniel Miessler — danielmiessler.com</a><span class="src">VitePress · warm off-white, serif body, link sidebar</span><span class="why">The archetypal security researcher site. Text-first, light, calm, zero decoration — just name, bio, and a sidebar of links (blog, projects, GitHub). Authority through content, not visuals.</span></div>
+  <div class="card"><span class="sec">RANK 3 · BRUTALIST TEXT PORTFOLIO</span><a target="_blank" rel="noopener noreferrer" href="https://www.minwookshin.com/">Minwook Shin — minwookshin.com</a><span class="src">plain white · text-only list</span><span class="why">"minwook shin / i make things / work / contact" with year+count metadata. Utilitarian, content-hierarchy-only. Strong if you want maximum restraint.</span></div>
+  <div class="card"><span class="sec">RANK 4 · CYBERFOLIO SHOWCASE</span><a target="_blank" rel="noopener noreferrer" href="https://cyberfolio.io/showcase">CyberFolio — security portfolios showcase</a><span class="src">real security pros</span><span class="why">A directory of real security professional portfolios — SOC analysts to security architects. Best ongoing benchmark for what peers in your field actually ship.</span></div>
+  <div class="card"><span class="sec">GUIDE · SECURITY PORTFOLIO RUBRIC</span><a target="_blank" rel="noopener noreferrer" href="https://designtocodes.com/blog/cybersecurity-portfolio-examples-how-to-build/">DesignToCodes — cybersecurity portfolio guide</a><span class="src">proof &gt; flashy</span><span class="why">"A cybersecurity portfolio that lands interviews shows evidence, not adjectives." Required sections: headline+specialty, write-ups, disclosures, certs, grouped tools, blog, contact. Design should be fast, accessible, clean.</span></div>
+  <div class="card"><span class="sec">RANK 5 · WHAT TO DROP</span><a target="_blank" rel="noopener noreferrer" href="https://www.mosambiswas.com">Mosam Biswas direction — demoted</a><span class="src">was top pick, now too flashy</span><span class="why">Its editorial-dev hero (giant type, status dot, live clock) is striking but too showy for a security persona. Keep only the idea of a metadata bar — dialed way down.</span></div>
+
+  <h2>Top-ranked award-winning portfolios — the good list (new research)</h2>
+  <p class="sub">From Web Design Awards portfolio leaderboard (jury-scored) + Colorlib's 21 best developer portfolios of 2026. Browser-inspected. This replaces the weak picks above.</p>
+
+  <div class="shots-row">
+    <figure><img src="/reference-shots/brittanychiang-com--top.png" alt="Brittany Chiang portfolio"><figcaption>brittanychiang.com — the gold standard dev portfolio</figcaption></figure>
+    <figure><img src="/reference-shots/nikolaradeski-com--top.png" alt="Nikola Radeski portfolio"><figcaption>nikolaradeski.com — WDA 8.30 award winner</figcaption></figure>
+    <figure><img src="/reference-shots/diogotc-com--top.png" alt="Diogo Correia portfolio"><figcaption>diogotc.com — dark particle hero</figcaption></figure>
+    <figure><img src="/reference-shots/www-tim-gesemann-dev--top.png" alt="Tim Gesemann portfolio"><figcaption>tim-gesemann.dev — light & friendly</figcaption></figure>
+  </div>
+
+  <div class="card"><span class="sec">RANK 1 · THE GOLD STANDARD</span><a target="_blank" rel="noopener noreferrer" href="https://brittanychiang.com/">Brittany Chiang — brittanychiang.com</a><span class="src">dark navy #0a192f · two-column · Gatsby</span><span class="why">The most-referenced developer portfolio. Left column: name, title, tagline, numbered nav (01. About / 02. Experience / 03. Projects), socials. Right: bio + experience timeline. Dark, restrained, credible. Swap navy→zinc-950 and teal→emerald, and it's a perfect security-engineer base.</span></div>
+  <div class="card"><span class="sec">RANK 2 · AWARD WINNER 8.30</span><a target="_blank" rel="noopener noreferrer" href="https://nikolaradeski.com/">Nikola Radeski — nikolaradeski.com</a><span class="src">Web Design Awards 8.30 · light, huge split-name hero</span><span class="why">Centered portrait splitting "NIKOLA / RADESKI" in giant type, subtle geometric bg, location+time stamp, pill nav with orange "Contact me". Award-winning craft, clean and not flashy.</span></div>
+  <div class="card"><span class="sec">RANK 3 · DARK PARTICLE HERO</span><a target="_blank" rel="noopener noreferrer" href="https://diogotc.com/">Diogo Correia — diogotc.com</a><span class="src">Gatsby · dark particle bg · centered hero</span><span class="why">Dark with an interactive particle/constellation background, centered profile + name + tagline, wide nav. Clean dev-portfolio structure with one atmospheric background.</span></div>
+  <div class="card"><span class="sec">RANK 4 · TIMELINE-FOCUSED</span><a target="_blank" rel="noopener noreferrer" href="https://www.tim-gesemann.dev/">Tim Gesemann — tim-gesemann.dev</a><span class="src">Svelte · light · friendly</span><span class="why">Clean light design, "Hi! I turn coffee into code", projects + creative experience timeline. Friendly tone (maybe too playful for security), but the timeline + project section structure is solid.</span></div>
+  <div class="card"><span class="sec">RANK 5 · CASSIE EVANS / BENTO</span><a target="_blank" rel="noopener noreferrer" href="https://cassie.codes/">Cassie Evans — cassie.codes</a><span class="src">custom · illustration-led</span><span class="why">Custom illustrated workspace + bold type + mint accent. Personality-led; good for character but not the security tone. Keep as a reference for warmth, not structure.</span></div>
+  <div class="card"><span class="sec">TOP-SCORED LEADERBOARD</span><a target="_blank" rel="noopener noreferrer" href="https://www.webdesignawards.io/categories/portfolio">Web Design Awards — Portfolio leaderboard</a><span class="src">27 sites, 22 winners, jury-scored</span><span class="why">Casa di Solare 9.30, Pixel Matters 8.80, Jean Rottner 8.40, Nikola Radeski 8.30, Aman Yadav 8.20, BLNK 8.20... The definitive ranked list of award-winning portfolio sites.</span></div>
+  <div class="card"><span class="sec">BEST-OF 2026 LIST</span><a target="_blank" rel="noopener noreferrer" href="https://colorlib.com/wp/developer-portfolios/">Colorlib — 21 best developer portfolios 2026</a><span class="src">analyzed 150, tested performance</span><span class="why">Brittany Chiang, Diogo Correia, Tim Gesemann, Tamal Sen, Cassie Evans, Sharlee... curated dev portfolios with what stands out + stack for each.</span></div>
+
+  <h2>Stylish components to integrate — ranked top picks (multi-agent research)</h2>
+  <p class="sub">Researched by 4 parallel agents across Aceternity, Cult UI, BEUI, Shadcn Space, CodeFronts, RareUI, Watermelon, Skiper, + award-site animation patterns. Ranked by style-impact for the emerald security theme.</p>
+
+  <div class="card"><span class="sec">#1 · ENCRYPTED / SCRAMBLE TEXT</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/encrypted-text">Aceternity — Encrypted Text</a><span class="src">motion · single-file · 10/10</span><span class="why">Gibberish→plaintext reveal that reads as literal decryption. THE security-persona signature. Use on hero sublines / section headers.</span></div>
+  <div class="card"><span class="sec">#2 · SCROLL-LINKED LINE-MASK REVEAL</span><a target="_blank" rel="noopener noreferrer" href="https://www.awwwards.com/websites/animation/">Award-site pattern</a><span class="src">small JS / CSS · 9/10</span><span class="why">Headings/paragraphs reveal word-by-word via clip-path mask as they enter viewport — the #1 "not AI-made" reveal used by Awwwards winners.</span></div>
+  <div class="card"><span class="sec">#3 · TEXT FLIPPING BOARD (SPLIT-FLAP)</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/text-flipping-board">Aceternity — Text Flipping Board</a><span class="src">motion · 9.5/10</span><span class="why">Vestaboard-style split-flap characters with mechanical flip. Perfect rotating skills/status ticker under the hero.</span></div>
+  <div class="card"><span class="sec">#4 · GLOWING EFFECT (CURSOR-ADAPTIVE BORDER)</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/glowing-effect">Aceternity — Glowing Effect</a><span class="src">motion · 9/10</span><span class="why">Cursor-following emerald glow border on cards — premium upgrade over the static shine border.</span></div>
+  <div class="card"><span class="sec">#5 · ASCII ART (BINARY/MATRIX)</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/ascii-art">Aceternity — ASCII Art</a><span class="src">canvas, no motion · 9.5/10</span><span class="why">Image → live ASCII with binary/braille/matrix charsets. Pure terminal aesthetic for the about/photo cell.</span></div>
+  <div class="card"><span class="sec">#6 · EVERVAULT CARD</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/evervault-card">Aceternity — Evervault Card</a><span class="src">motion · 9/10</span><span class="why">Hover card revealing encrypted text — literally inspired by a security company's branding. Project-card variant.</span></div>
+  <div class="card"><span class="sec">#7 · GRID BEAM BACKGROUND</span><a target="_blank" rel="noopener noreferrer" href="https://www.cult-ui.com/docs/components/grid-beam">Cult UI — Grid Beam</a><span class="src">canvas, no motion · 9/10</span><span class="why">Soft glowing beams traveling grid dividers — emerald "ocean" palette. Next-level hero background.</span></div>
+  <div class="card"><span class="sec">#8 · LIGHTBOARD (DOT-MATRIX)</span><a target="_blank" rel="noopener noreferrer" href="https://www.cult-ui.com/docs/components/lightboard">Cult UI — LightBoard</a><span class="src">React + timers · 9/10</span><span class="why">Dot-matrix marquee that renders moving text + click-drag drawing. Hardware-terminal skills ticker — beats the CSS marquee.</span></div>
+  <div class="card"><span class="sec">#9 · COMMAND PALETTE (CMD-K)</span><a target="_blank" rel="noopener noreferrer" href="https://shadcnspace.com/components/command">Shadcn Space / Skiper — Command</a><span class="src">cmdk + motion · 8.5/10</span><span class="why">Ctrl/Cmd+K palette as site navigation — terminal-native, the definitive pro-portfolio interaction.</span></div>
+  <div class="card"><span class="sec">#10 · SHADER BACKGROUND (DITHER/GOD-RAYS)</span><a target="_blank" rel="noopener noreferrer" href="https://beui.dev/components/motion/shader-background">BEUI — Shader Background</a><span class="src">@paper-design/shaders-react · 9.5/10</span><span class="why">22 canvas shaders (dithering, perlin, god-rays, dot grid) — dither variant is default #00ff9d, pure cyberpunk terminal.</span></div>
+  <div class="card"><span class="sec">#11 · TRACING BEAM</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/tracing-beam">Aceternity — Tracing Beam</a><span class="src">motion · 8.5/10</span><span class="why">Emerald beam traces an SVG path as you scroll — run it along the timeline or as a vertical process line.</span></div>
+  <div class="card"><span class="sec">#12 · GRID REVEAL (PROJECTS)</span><a target="_blank" rel="noopener noreferrer" href="https://www.rareui.com/components/gridreveal">RareUI — Grid Reveal</a><span class="src">motion · 9.5/10</span><span class="why">Image loading that subdivides into cells then resolves — procedural "generating" pill is pure terminal/security. Project screenshots.</span></div>
+  <div class="card"><span class="sec">#13 · STAGGERED GRID REVEALS</span><a target="_blank" rel="noopener noreferrer" href="https://codefronts.com/motion/css-scroll-animations/">Pattern (CodeFronts CSS scroll)</a><span class="src">CSS + IO · 8/10</span><span class="why">Cards rise in staggered by index (~80ms) when the grid enters — subtle, premium, no bounce.</span></div>
+  <div class="card"><span class="sec">#14 · GLITCH/SLICE ON PROJECT MEDIA</span><a target="_blank" rel="noopener noreferrer" href="https://www.a1.gallery/websites/animated-portfolio">Pattern (cyber portfolios)</a><span class="src">small JS · 8/10</span><span class="why">Project screenshots break into clip-path slices with a faint emerald split on hover — "compromising the image". On-brand, use occasionally.</span></div>
+  <div class="card"><span class="sec">#15 · 3D PERSPECTIVE TEXT</span><a target="_blank" rel="noopener noreferrer" href="https://skiper-ui.com/v1/skiper28">Skiper — 3D perspective text</a><span class="src">motion + lenis · 9/10</span><span class="why">Headline chars rotate/translate in 3D as you scroll — premium hero name treatment in mono.</span></div>
+  <div class="card"><span class="sec">#16 · FLUID ORB</span><a target="_blank" rel="noopener noreferrer" href="https://www.rareui.com/components/fluidorb">RareUI — Fluid Orb</a><span class="src">WebGL canvas · 9/10</span><span class="why">Emerald fluid orb behind hero/contact — ambient, honors reduced-motion. One WebGL accent max.</span></div>
+  <div class="card"><span class="sec">#17 · LAMP EFFECT (SECTION OPENER)</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/lamp-effect">Aceternity — Lamp Effect</a><span class="src">motion · 8.5/10</span><span class="why">Light beams converge into an illuminated section heading — cinematic section openers, tint emerald.</span></div>
+  <div class="card"><span class="sec">#18 · STICKY PIN + HORIZONTAL RAIL</span><a target="_blank" rel="noopener noreferrer" href="https://blink.new/templates/portfolio/immersive-scroll-portfolio">Pattern (GSAP ScrollTrigger)</a><span class="src">GSAP · 9/10 flash</span><span class="why">One section pins while project cards travel horizontally. The flashiest item — use once max, or skip for restraint.</span></div>
+  <div class="card"><span class="sec">#19 · DOTTED GLOW BACKGROUND</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/components/dotted-glow-background">Aceternity — Dotted Glow BG</a><span class="src">motion · 8.5/10</span><span class="why">Pulsing dot-grid with per-dot glow — layers over aurora without competing.</span></div>
+  <div class="card"><span class="sec">#20 · SHADER LENS BLUR / DITHER HERO</span><a target="_blank" rel="noopener noreferrer" href="https://www.cult-ui.com/docs/components/shader-lens-blur">Cult UI — Lens Blur</a><span class="src">three.js + jotai · 9/10</span><span class="why">Interactive WebGL lens-blur / dithering shader as ONE hero accent. Heavier — pick only one shader.</span></div>
+
+  <h2>Design directions — final verified ranking (browser scroll-tested)</h2>
+  <p class="sub">From parallel research across Aceternity templates, Web Design Awards, Colorlib, Minimal Gallery + layout patterns. The top 2 were browser-verified end-to-end (full scroll + screenshots).</p>
+
+  <div class="card"><span class="sec">#1 · DARK TWO-COLUMN SIDEBAR (VERIFIED)</span><a target="_blank" rel="noopener noreferrer" href="https://brittanychiang.com/">Brittany Chiang model</a><span class="src">browser-verified · dark navy + single accent</span><span class="why">Fixed left rail (name, title, numbered nav 01-03, socials) + right scrolling content (bio, dated experience rows with tech tags). The "senior engineer spec-sheet". Scroll-tested clean. Maps to zinc-950 + emerald. BEST FIT.</span></div>
+  <div class="card"><span class="sec">#2 · TIMELINE-AS-AUDIT-LOG (VERIFIED)</span><a target="_blank" rel="noopener noreferrer" href="https://diogotc.com/">Diogo Correia model</a><span class="src">browser-verified · light · timeline-led</span><span class="why">Particle hero + dated evidence timeline (CTFs, CVEs, tools) + GPG key in socials. Reads like an audit log — native security credibility. Graft the timeline + GPG/bounty/CVE references onto the dark theme.</span></div>
+  <div class="card"><span class="sec">#3 · SIDEBAR WORKSPACE (ACETERNITY)</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/templates/sidefolio-portfolio-template">Sidefolio template</a><span class="src">Next.js + motion · dark</span><span class="why">Persistent left identity/nav sidebar, content scrolls beside, collapsible on mobile. IDE/security-tool workspace feel.</span></div>
+  <div class="card"><span class="sec">#4 · CENTERED-MINIMAL EDITORIAL</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/templates/minimal-portfolio-template">Minimal Portfolio template</a><span class="src">Next.js + motion · dark-first</span><span class="why">One centered hero statement over whitespace, content stacked down the middle. Calm, confident, safest "senior engineer" read.</span></div>
+  <div class="card"><span class="sec">#5 · ATMOSPHERIC DARK HERO</span><a target="_blank" rel="noopener noreferrer" href="https://ui.aceternity.com/blocks/hero-sections">Aceternity Hero blocks (beams/grid/noise)</a><span class="src">dark-first effects</span><span class="why">Grid/beam/scanline background behind a centered headline + terminal card as hero visual. Technical "lab" mood, minimal motion.</span></div>
+  <div class="card"><span class="sec">#6 · EDITORIAL GIANT TYPE + NUMBERED INDEX</span><a target="_blank" rel="noopener noreferrer" href="https://www.webdesignawards.io/nominees/jean-rottner">Jean Rottner / Casa di Solare model</a><span class="src">light · editorial</span><span class="why">Oversized mono headline (e.g. "$ whoami — security engineer") + numbered index of advisories/projects. Cheapest route to premium; keep to one declarative line.</span></div>
+  <div class="card"><span class="sec">#7 · PROOF WALL + CASE STUDIES</span><a target="_blank" rel="noopener noreferrer" href="https://www.pixelmatters.com/">Pixelmatters model</a><span class="src">light · agency</span><span class="why">Statement hero → logo wall (HackerOne, Bugcrowd, MSRC) → 2-3 deep case studies. Fastest credibility; risks agency feel.</span></div>
+  <div class="card"><span class="sec">#8 · NUMBERED SECTIONS + SCROLL-SPY RAIL</span><a target="_blank" rel="noopener noreferrer" href="https://curious.page/blog/best-personal-website-examples-developers">Pattern (award editorial sites)</a><span class="src">CSS + ~15 lines JS</span><span class="why">Every section gets "01. experience" mono headers + thin right rail showing current number. Reads as documentation — a security engineer's native genre. Combine with #1.</span></div>
+  <div class="card"><span class="sec">#9 · BRUTALIST LIST (MONO-ONLY)</span><a target="_blank" rel="noopener noreferrer" href="https://minimal.gallery/tag/personal/">Minimal Gallery personal sites</a><span class="src">CSS-only</span><span class="why">Whole page as one mono list, hairlines, emerald only for links/status. Max credibility, sheds warmth; pair with the terminal hero.</span></div>
+  <div class="card"><span class="sec">#10 · TERMINAL-AS-HERO (BOOT SEQUENCE)</span><a target="_blank" rel="noopener noreferrer" href="https://www.awwwards.com/websites/portfolio/">Pattern (dev/security sites)</a><span class="src">small JS</span><span class="why">Hero IS the terminal: $ whoami, typed one-liner, modules-as-sections scan. Strongest persona signal; only lands if dead-restrained (no glitch/matrix-rain clichés).</span></div>
+  <div class="card"><span class="sec">#11 · STICKY-PIN HORIZONTAL RAIL</span><a target="_blank" rel="noopener noreferrer" href="https://blink.new/templates/portfolio/immersive-scroll-portfolio">GSAP ScrollTrigger pattern</a><span class="src">GSAP · flashy</span><span class="why">Section pins while project cards travel horizontally. Premium but motion-dependent; least security-restrained — use once max or skip.</span></div>
+
+  <div class="rec">
+    <h3>// verdict — build this combination</h3>
+    <ul>
+      <li><b>Shell:</b> #1 dark two-column sidebar (Brittany Chiang) — left identity/nav rail + right content, zinc-950 + emerald.</li>
+      <li><b>Experience:</b> #2 audit-log timeline (Diogo) — dated evidence rows with CVEs/CTFs + tech tags, on dark.</li>
+      <li><b>Hero:</b> keep the terminal card; add "$ whoami" editorial scale + GPG/bounty links in socials.</li>
+      <li><b>Sections:</b> #8 numbered mono headers + scroll-spy rail (reads as documentation).</li>
+      <li><b>Drop:</b> bento-as-"look at me" → replace with evidence timeline; no social-proof/testimonial walls.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

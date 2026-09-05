@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Wireframe v6 — Shreyash Tirpude (Nikola-style · exact replica)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=General+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<style>
+  /* ===== PROFESSIONAL DARK · VIOLET/INDIGO (no green) ===== */
+  :root{
+    --bg:#0a0a10;          /* near-black w/ violet tint */
+    --panel:#12121c;       /* elevated panel */
+    --card:#171722;        /* cards */
+    --line:#26263a;        /* hairlines */
+    --fg:#eceaf4;          /* off-white text */
+    --muted:#a1a1b8;       /* secondary text */
+    --muted2:#6f6f8a;      /* tertiary text */
+    --accent:#8b5cf6;      /* violet primary */
+    --accent-bright:#a78bfa;
+    --accent-soft:rgba(139,92,246,.14);
+    --accent-deep:#4c1d95;
+    --display:'Clash Display','Inter',sans-serif;
+    --body:'General Sans','Inter',sans-serif;
+    --script:'Instrument Serif',serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:1.5rem;overflow-x:hidden}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.6;padding-bottom:5.5rem;overflow-x:clip}
+  ::selection{background:rgba(139,92,246,.3)}
+  .container{max-width:80rem;margin:0 auto;padding:0 1.5rem}
+
+  /* edit affordances */
+  [contenteditable]{border-radius:2px;transition:outline .15s;outline-offset:3px}
+  [contenteditable]:hover{outline:1px dashed rgba(139,92,246,.55);cursor:text}
+  [contenteditable]:focus{outline:2px solid var(--accent);background:rgba(139,92,246,.08)}
+
+  /* reveal */
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  /* ===== PRELOADER (Nikola signature: counter) ===== */
+  #preloader{position:fixed;inset:0;z-index:300;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .5s ease,visibility .5s ease}
+  #preloader.done{opacity:0;visibility:hidden}
+  #preloader .pl-count{font-family:var(--display);font-weight:700;font-size:clamp(4rem,12vw,9rem);line-height:1;color:var(--fg)}
+  #preloader .pl-count .accent{color:var(--accent)}
+  #preloader .pl-label{font-family:var(--script);font-style:italic;color:var(--muted);margin-top:.6rem;font-size:1.1rem}
+
+  /* ===== BACKGROUND: violet aurora mesh + masked dots + vignette (premium) ===== */
+  .bg-scene{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .bg-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;background:
+    radial-gradient(90% 60% at 12% 8%,rgba(124,58,237,.12),transparent 62%),
+    radial-gradient(70% 50% at 88% 18%,rgba(34,211,238,.05),transparent 60%),
+    radial-gradient(80% 60% at 50% 100%,rgba(139,92,246,.09),transparent 65%),
+    var(--bg)}
+  /* aurora blooms — blurred violet mesh */
+  .blob{position:absolute;border-radius:50%;filter:blur(90px) saturate(1.3);mix-blend-mode:screen;opacity:.55;pointer-events:none;will-change:transform}
+  .blob.b1{width:640px;height:640px;background:radial-gradient(circle at 30% 30%,rgba(139,92,246,.75),rgba(139,92,246,.15) 60%,transparent);top:-220px;left:-180px;animation:blob-a 30s ease-in-out infinite}
+  .blob.b2{width:560px;height:560px;background:radial-gradient(circle at 60% 40%,rgba(167,139,250,.5),rgba(139,92,246,.12) 55%,transparent);top:6%;right:-200px;animation:blob-b 36s ease-in-out infinite}
+  .blob.b3{width:480px;height:480px;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,.14),rgba(139,92,246,.12) 55%,transparent);bottom:-180px;left:24%;animation:blob-c 42s ease-in-out infinite}
+  .blob.b4{width:360px;height:360px;background:radial-gradient(circle,rgba(167,139,250,.4),rgba(139,92,246,.1) 55%,transparent);bottom:6%;right:10%;animation:blob-d 26s ease-in-out infinite}
+  @keyframes blob-a{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(60px,40px,0) scale(1.12)}66%{transform:translate3d(-30px,80px,0) scale(.94)}}
+  @keyframes blob-b{0%,100%{transform:translate3d(0,0,0) scale(1)}40%{transform:translate3d(-80px,50px,0) scale(1.08)}70%{transform:translate3d(-20px,-50px,0) scale(.92)}}
+  @keyframes blob-c{0%,100%{transform:translate3d(0,0,0) scale(1)}30%{transform:translate3d(50px,-60px,0) scale(1.1)}65%{transform:translate3d(-60px,20px,0) scale(.95)}}
+  @keyframes blob-d{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(30px,-40px,0) scale(1.15)}}
+  /* blurred conic wash — melts blooms into aurora light */
+  .aurora{position:absolute;inset:-20%;pointer-events:none;
+    background:conic-gradient(from 120deg at 50% 30%,
+      rgba(76,29,149,0) 0%,rgba(139,92,246,.28) 18%,rgba(34,211,238,.10) 38%,
+      rgba(167,139,250,.18) 55%,rgba(139,92,246,.30) 74%,rgba(76,29,149,0) 100%);
+    filter:blur(70px) saturate(1.4);opacity:.5;mix-blend-mode:screen;
+    animation:aurora-drift 26s ease-in-out infinite alternate;will-change:transform}
+  @keyframes aurora-drift{from{transform:translate3d(-2.5%,-1.5%,0) rotate(0deg)}to{transform:translate3d(2.5%,2%,0) rotate(6deg)}}
+  /* masked dot grid — fine violet dots dissolving at the edges (replaces honeycomb) */
+  .dots{position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(167,139,250,.35) 1px,transparent 1.4px);
+    background-size:22px 22px;
+    -webkit-mask-image:radial-gradient(ellipse 62% 52% at 50% 42%,#000 18%,rgba(0,0,0,.55) 46%,transparent 72%);
+    mask-image:radial-gradient(ellipse 62% 52% at 50% 42%,#000 18%,rgba(0,0,0,.55) 46%,transparent 72%);
+    opacity:.5}
+  /* spotlight behind headline + vignette to seat the scene */
+  .spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 62% 46% at 50% 0%,rgba(139,92,246,.16),transparent 70%)}
+  .vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 50%,transparent 58%,rgba(4,4,8,.55) 100%)}
+  /* cursor scan-light: violet beam that follows the pointer */
+  .bg-scanlight{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(circle 420px at var(--lx,50%) var(--ly,40%),
+      rgba(139,92,246,.20), rgba(167,139,250,.08) 45%, transparent 72%);
+    transition:--lx .5s cubic-bezier(.16,1,.3,1),--ly .5s cubic-bezier(.16,1,.3,1)}
+  .bg-scanlight.idle{animation:scan-orbit 18s ease-in-out infinite}
+  @keyframes scan-orbit{
+    0%{--lx:24%;--ly:30%}25%{--lx:76%;--ly:24%}50%{--lx:82%;--ly:72%}
+    75%{--lx:18%;--ly:70%}100%{--lx:24%;--ly:30%}}
+  /* CRT scanline sweep (violet) */
+  .scan-pulse{position:absolute;left:0;right:0;top:-20vh;height:20vh;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(139,92,246,.06) 45%,rgba(139,92,246,.12) 50%,transparent);
+    animation:scan-sweep 14s linear infinite}
+  @keyframes scan-sweep{from{transform:translateY(0)}to{transform:translateY(150vh)}}
+  @media (prefers-reduced-motion: reduce){.blob,.aurora,.bg-scanlight,.bg-scanlight.idle,.scan-pulse{animation:none!important;transition:none}.bg-scanlight{opacity:.35}}
+
+  /* ===== FLOATING PILL NAV (Nikola signature) ===== */
+  .pillnav{position:fixed;bottom:1.1rem;left:50%;transform:translateX(-50%);z-index:120;display:flex;align-items:center;gap:.1rem;background:rgba(18,18,28,.9);border:1px solid var(--line);border-radius:999px;padding:.32rem;box-shadow:0 12px 40px rgba(0,0,0,.5);backdrop-filter:blur(12px)}
+  .pillnav a{display:flex;align-items:center;gap:.4rem;padding:.5rem .95rem;border-radius:999px;font-family:var(--display);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s,background .2s;will-change:transform}
+  .pillnav a:hover{color:var(--fg)}
+  .pillnav a.on{color:var(--fg);background:rgba(139,92,246,.18)}
+  .pillnav .home{font-size:1rem;color:var(--muted);padding:.5rem .7rem}
+  .pillnav .cta{background:var(--accent);color:#0a0a10;font-weight:600;padding:.5rem 1.15rem}
+  .pillnav .cta:hover{background:var(--accent-bright);color:#0a0a10}
+  @media(max-width:720px){.pillnav{gap:0;padding:.25rem}.pillnav a{padding:.45rem .55rem;font-size:.6rem}.pillnav a span.t{display:none}.pillnav .cta span.t{display:none}}
+
+  /* ===== CUSTOM CURSOR (dot + trailing ring) ===== */
+  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-100px,-100px);border-radius:50%}
+  .cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--accent);opacity:0;transition:opacity .2s}
+  .cursor-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid var(--accent);mix-blend-mode:difference;
+    transition:width .25s,height .25s,margin .25s,background-color .2s}
+  .cursor-ring.is-hover{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(139,92,246,.14)}
+  html.has-cursor,html.has-cursor a,html.has-cursor button,html.has-cursor summary{cursor:none}
+  @media (pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+  /* ===== MAGNETIC ELEMENTS ===== */
+  .magnetic{transition:transform .45s cubic-bezier(.22,1,.36,1),background .25s ease,color .25s ease,box-shadow .25s ease;will-change:transform}
+
+  /* ===== CARD SPOTLIGHT + 3D TILT ===== */
+  .spotlight{position:relative;border-radius:1rem;background:var(--card);transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-style:preserve-3d;transition:transform .18s ease-out,box-shadow .35s ease}
+  .spotlight:hover{box-shadow:0 28px 56px -28px rgba(139,92,246,.45)}
+  .spotlight::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .3s;
+    background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),#a78bfa 0%,rgba(139,92,246,.4) 40%,transparent 70%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+  .spotlight:hover::before{opacity:1}
+  @media (prefers-reduced-motion: reduce){.spotlight{transform:none}.spotlight::before{opacity:0!important}}
+
+  /* ===== HERO: split name + terminal card to the RIGHT of surname ===== */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem 1rem 5rem;position:relative}
+  .hero-name-row{display:flex;align-items:center;justify-content:center;gap:clamp(.4rem,1.5vw,1.8rem);flex-wrap:wrap}
+  .hero-name{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,7vw,7.5rem);line-height:.92;letter-spacing:-.02em;text-transform:uppercase;color:var(--fg);white-space:nowrap}
+  .hero-name .outline{color:transparent;-webkit-text-stroke:1.6px #4a4a63}
+  .hero-name.accent{color:var(--accent)}
+  /* split-type: each letter is a span that animates in */
+  .hero-name .sp{display:inline-block;opacity:0;transform:translateY(.4em) rotate(3deg);transition:opacity .5s cubic-bezier(.2,.8,.3,1),transform .6s cubic-bezier(.2,.8,.3,1)}
+  .hero-name.in .sp{opacity:1;transform:none}
+  /* terminal card — sits to the RIGHT of the surname */
+  .hero-term{width:clamp(220px,30vw,340px);background:var(--card);border:1px solid var(--line);border-radius:1rem;box-shadow:0 18px 50px rgba(0,0,0,.5);overflow:hidden;flex-shrink:0;font-family:var(--body)}
+  .hero-term .term-bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .8rem;background:var(--panel);border-bottom:1px solid var(--line)}
+  .hero-term .term-bar .tdot{width:.62rem;height:.62rem;border-radius:50%}
+  .hero-term .term-bar .ttl{margin-left:.4rem;font-size:.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .hero-term .term-body{padding:.9rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.8;color:var(--fg);min-height:11rem;text-align:left}
+  .hero-term .term-body .p{color:var(--accent-bright);font-weight:600}
+  .hero-term .term-body .dim{color:var(--muted2)}
+  .hero-term .tline{white-space:pre-wrap}
+  .hero-term .t-caret::after{content:"▋";color:var(--accent);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* sonar ping on the status dot */
+  .hero-meta .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:.45rem;position:relative}
+  .hero-meta .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);opacity:.8;animation:sonar 2.2s ease-out infinite}
+  @keyframes sonar{0%{transform:scale(.6);opacity:.9}70%,100%{transform:scale(2.2);opacity:0}}
+  .hero-kicker{font-family:var(--script);font-style:italic;font-size:clamp(1rem,2vw,1.35rem);color:var(--muted);margin-bottom:.6rem}
+  .hero-tag{font-family:var(--display);font-size:clamp(.8rem,1.4vw,1rem);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.9rem;max-width:46rem}
+  .hero-meta{font-family:var(--display);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:1.6rem;display:flex;gap:1.6rem;flex-wrap:wrap;justify-content:center}
+  .scroll-cue{margin-top:2.6rem;font-family:var(--display);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted2);display:inline-flex;align-items:center;gap:.6rem}
+  .scroll-cue .tri{width:0;height:0;border-left:7px solid var(--accent);border-top:4px solid transparent;border-bottom:4px solid transparent;animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateX(6px)}}
+
+  /* ===== SECTIONS ===== */
+  section{padding:5.5rem 0;position:relative}
+  .sec-label{font-family:var(--script);font-style:italic;font-size:1.05rem;color:var(--muted);margin-bottom:.6rem}
+  .sec-title{font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,5.4vw,4.2rem);line-height:1.02;letter-spacing:-.02em;color:var(--fg)}
+  .sec-title .accent{color:var(--accent)}
+  .sec-sub{color:var(--muted);margin-top:.7rem;font-size:1rem;max-width:56ch}
+
+  /* numbered skills — overlapping stacking cards (Nikola signature) */
+  .num-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2.2rem 3rem;margin-top:2.6rem}
+  @media(max-width:700px){.num-grid{grid-template-columns:1fr;gap:2.6rem}}
+  .num-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.5rem 1.4rem 1.5rem 1.9rem;box-shadow:0 10px 30px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s;margin-left:1.2rem}
+  .num-card::before{content:attr(data-n);position:absolute;left:-1.05rem;top:1.4rem;font-family:var(--display);font-size:.72rem;letter-spacing:.14em;color:var(--accent);background:var(--card);border:1px solid var(--line);border-radius:999px;width:2.1rem;height:2.1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+  .num-card + .num-card{margin-top:-1.6rem}
+  .num-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.1);z-index:2}
+  .num-card h3{font-family:var(--display);font-size:1.3rem;font-weight:600;letter-spacing:-.01em}
+  .num-card .script{font-family:var(--script);font-style:italic;font-size:.95rem;color:var(--muted);margin-bottom:.4rem}
+  .num-card p{color:var(--muted);font-size:.88rem;margin-top:.4rem;line-height:1.55}
+  .num-card .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+  .num-card .chip{font-family:var(--display);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(139,92,246,.35);border-radius:2rem;padding:.22rem .6rem}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.6rem;align-items:start}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+  .about-copy p{color:var(--muted);font-size:.98rem;margin-bottom:1rem;max-width:52ch}
+  .about-copy strong{color:var(--fg)}
+  .about-copy em{color:var(--accent);font-style:italic}
+  .about-facts{display:flex;flex-direction:column;gap:.7rem}
+  .fact{display:flex;gap:1rem;border-bottom:1px solid var(--line);padding:.5rem 0}
+  .fact .k{font-family:var(--display);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);min-width:7.5rem}
+  .fact .v{color:var(--fg);font-size:.95rem}
+
+  /* awards */
+  .awards{margin-top:2.2rem;border-top:1px solid var(--line)}
+  .award-row{display:grid;grid-template-columns:2fr 1.4fr 1fr;gap:1rem;padding:1.1rem .2rem;border-bottom:1px solid var(--line);align-items:baseline}
+  @media(max-width:700px){.award-row{grid-template-columns:1fr 1fr}}
+  .award-row .a{font-family:var(--display);font-weight:600;font-size:1.15rem;color:var(--fg)}
+  .award-row .o{color:var(--muted);font-size:.9rem}
+  .award-row .d{font-family:var(--display);font-size:.72rem;letter-spacing:.1em;color:var(--muted2);text-transform:uppercase}
+
+  /* complete portfolio card */
+  .portfolio-card{margin-top:2.6rem;background:var(--card);border:1px solid var(--line);border-radius:1.4rem;padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.05)}
+  .portfolio-card .wreath{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16rem;color:rgba(139,92,246,.08);pointer-events:none;line-height:1}
+  .portfolio-card .small{font-family:var(--display);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .portfolio-card h3{font-family:var(--display);font-size:clamp(1.9rem,4.4vw,3.4rem);font-weight:600;margin-top:.6rem;line-height:1.02}
+  .portfolio-card h3 .accent{color:var(--accent)}
+  .portfolio-card .note{color:var(--muted);font-size:.88rem;margin-top:.7rem}
+  .portfolio-card .btn{margin-top:1.6rem}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;border-radius:999px;font-family:var(--display);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#a78bfa}
+  .btn-outline{border-color:var(--line);color:var(--fg);background:var(--card)}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* timeline */
+  .timeline{margin-top:2.4rem;border-left:1px solid var(--line);padding-left:1.8rem;display:flex;flex-direction:column;gap:2rem}
+  .tl-item{position:relative}
+  .tl-item::before{content:"";position:absolute;left:calc(-1.8rem - .3rem);top:.5rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(139,92,246,.5)}
+  .tl-date{font-family:var(--display);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .tl-role{font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.55rem);font-weight:600;margin-top:.2rem;letter-spacing:-.01em}
+  .tl-org{font-family:var(--script);font-style:italic;font-size:1rem;color:var(--muted);margin-top:.1rem}
+  .tl-desc{color:var(--muted);font-size:.9rem;margin-top:.5rem;max-width:60ch}
+  .tl-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+  .tl-tag{font-family:var(--display);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:2rem;padding:.2rem .6rem}
+  .tl-tag.hl{color:var(--accent);border-color:rgba(139,92,246,.4)}
+
+  /* work rows */
+  .work-rows{margin-top:2.4rem;display:flex;flex-direction:column;gap:.4rem}
+  .work-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.3rem .4rem;border-top:1px solid var(--line);flex-wrap:wrap;transition:background .2s,padding .2s}
+  .work-row:last-child{border-bottom:1px solid var(--line)}
+  .work-row:hover{background:var(--accent-soft);padding-left:1rem}
+  .work-row .w-name{font-family:var(--display);font-size:clamp(1.2rem,2.6vw,1.9rem);font-weight:600;letter-spacing:-.01em}
+  .work-row .w-name .tag{display:inline-block;font-family:var(--display);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(139,92,246,.4);border-radius:2rem;padding:.15rem .55rem;vertical-align:middle;margin-left:.6rem}
+  .work-row .w-desc{color:var(--muted);font-size:.86rem;max-width:44ch;margin-top:.3rem}
+  .work-row .w-link{font-family:var(--display);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+  .work-row .w-link:hover{color:var(--fg)}
+
+  /* FAQ accordion */
+  .faq{max-width:52rem;margin:2.4rem auto 0}
+  .faq-item{border:1px solid var(--line);background:var(--card);border-radius:.9rem;margin-bottom:.7rem;overflow:hidden}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.3rem;cursor:pointer;font-family:var(--display);font-size:1rem;font-weight:500;color:var(--fg)}
+  .faq-q .plus{color:var(--accent);font-size:1.3rem;transition:transform .3s;flex-shrink:0}
+  .faq-item.open .plus{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--muted);font-size:.9rem;line-height:1.65}
+  .faq-item.open .faq-a{max-height:20rem}
+  .faq-a .in{padding:0 1.3rem 1.2rem}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.6rem;align-items:start}
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr}}
+  .contact-list{display:flex;flex-direction:column;gap:.8rem;font-size:1rem}
+  .contact-list .k{font-family:var(--display);color:var(--muted2);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;display:inline-block;min-width:6rem}
+  .contact-list a{color:var(--fg);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+  .contact-list a:hover{color:var(--accent);border-color:rgba(139,92,246,.4)}
+  .form-field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+  .form-field label{font-family:var(--display);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .form-field input,.form-field textarea{background:var(--card);border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;color:var(--fg);font-size:.92rem;font-family:inherit}
+  .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px rgba(139,92,246,.4)}
+  .honeypot{position:absolute;left:-9999px;opacity:0}
+
+  /* marquee + footer */
+  .cta-marquee{overflow:hidden;border-block:1px solid var(--line);padding:1.6rem 0;margin-top:3rem;background:var(--card)}
+  .cta-marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 26s linear infinite}
+  .cta-marquee span{font-family:var(--display);font-size:clamp(2rem,5.4vw,4.4rem);font-weight:600;text-transform:uppercase;white-space:nowrap;color:var(--fg);letter-spacing:.01em}
+  .cta-marquee span .star{color:var(--accent)}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){.cta-marquee-track{animation:none}}
+  .footer{border-top:1px solid var(--line);padding:2.4rem 0;margin-top:2rem}
+  .footer-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.84rem;color:var(--muted)}
+  .footer a{color:var(--muted);text-decoration:none}
+  .footer a:hover{color:var(--accent)}
+
+  /* chrome */
+  .grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain-shift .6s steps(8) infinite}
+  @keyframes grain-shift{0%{transform:translate(0,0)}12.5%{transform:translate(-2%,-1%)}25%{transform:translate(1%,2%)}37.5%{transform:translate(-1%,1%)}50%{transform:translate(2%,-2%)}62.5%{transform:translate(-2%,0)}75%{transform:translate(1%,1%)}87.5%{transform:translate(0,-2%)}}
+  @media (prefers-reduced-motion: reduce){.grain{animation:none}}
+
+  /* ===== MARKER HIGHLIGHT (orange sweep on scroll) ===== */
+  .marker{background-image:linear-gradient(rgba(139,92,246,.34),rgba(139,92,246,.34));background-repeat:no-repeat;background-size:0% 92%;background-position:0 85%;color:var(--fg);padding:0 .08em;border-radius:2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .9s cubic-bezier(.16,1,.3,1)}
+  .marker.is-in{background-size:100% 92%}
+  @media (prefers-reduced-motion: reduce){.marker{background-size:100% 92%}}
+
+  /* ===== TEXT SCRAMBLE ===== */
+  .scrambling{color:var(--accent)}
+
+  /* ===== SHIMMER headline ===== */
+  .shimmer{color:var(--fg);background-image:linear-gradient(110deg,var(--fg) 30%,#8b5cf6 44%,#c4b5fd 50%,#8b5cf6 56%,var(--fg) 70%);background-size:220% 100%;background-position:0% 0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer-sweep 5s linear infinite}
+  @keyframes shimmer-sweep{to{background-position:-120% 0}}
+  @media (prefers-reduced-motion: reduce){.shimmer{animation:none;background-position:55% 0}}
+
+  /* ===== BUG-FEED TICKER (marquee with mask + pause) ===== */
+  .ticker{--tick-gap:1rem;--tick-dur:26s;overflow:hidden;border-block:1px solid var(--line);padding:1.3rem 0;background:var(--card)}
+  .ticker__viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .ticker__track{display:inline-flex;gap:var(--tick-gap);width:max-content;white-space:nowrap;will-change:transform;animation:ticker-scroll var(--tick-dur) linear infinite}
+  .ticker__viewport:hover .ticker__track,.ticker__viewport:focus-within .ticker__track{animation-play-state:paused}
+  @keyframes ticker-scroll{to{transform:translateX(calc(-50% - var(--tick-gap)/2))}}
+  .ticker__item{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--fg);border:1px solid var(--line);background:var(--card);border-radius:999px;padding:.45em 1em}
+  .ticker__item::before{content:'▸ ';color:var(--accent);font-weight:700}
+  @media (prefers-reduced-motion: reduce){.ticker__track{animation:none;flex-wrap:wrap;width:100%;justify-content:center;row-gap:.6rem}.ticker__group--dup{display:none}}
+
+  #scroll-progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:200;transition:width .1s linear}
+  .editbar{position:fixed;bottom:4.4rem;left:50%;transform:translateX(-50%);z-index:150;display:flex;gap:.45rem;align-items:center;padding:.5rem .7rem;background:rgba(18,18,28,.92);border:1px solid var(--line);border-radius:.75rem;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,.5);font-size:.8rem}
+  .editbar .sep{width:1px;height:1.2rem;background:var(--line);margin:0 .3rem}
+  .editbar button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:.4rem;padding:.3rem .65rem;font-size:.78rem;font-family:'JetBrains Mono',monospace;cursor:pointer}
+  .editbar button:hover{border-color:var(--accent);color:var(--accent)}
+  .editbar .status{color:var(--muted);font-size:.72rem;font-family:'JetBrains Mono',monospace}
+  .editbar a{color:var(--muted);font-size:.75rem;text-decoration:none;font-family:'JetBrains Mono',monospace}
+  .editbar a:hover{color:var(--accent)}
+  .toast{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:201;background:var(--card);border:1px solid rgba(139,92,246,.5);color:var(--fg);border-radius:.6rem;padding:.7rem 1.2rem;font-size:.85rem;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .3s}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div class="grain"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="bg-scene" aria-hidden="true">
+  <div class="bg-layer"></div>
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <span class="blob b4"></span>
+  <div class="aurora"></div>
+  <div class="dots"></div>
+  <div class="spot"></div>
+  <div class="vignette"></div>
+  <div class="bg-scanlight" id="scanlight"></div>
+  <div class="scan-pulse"></div>
+</div>
+
+<!-- ===== PRELOADER ===== -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-count"><span id="pl-num">0</span><span class="accent">%</span></div>
+  <div class="pl-label">loading portfolio</div>
+</div>
+
+<div class="editbar">
+  <a href="/wireframe-v5.html" title="Wireframe v5">← v5</a>
+  <span class="sep"></span>
+  <button onclick="saveHtml()">💾 Save HTML</button>
+  <button onclick="exportJson()">⇩ Export JSON</button>
+  <button onclick="resetEdits()">⟲ Reset</button>
+  <span class="status" id="status">autosave on</span>
+</div>
+<div class="toast" id="toast">✎ Click any text to edit it — changes autosave to this browser.</div>
+
+<!-- ===== floating pill nav ===== -->
+<nav class="pillnav" id="pillnav">
+  <a href="#top" class="home magnetic" title="Home" aria-label="Home" data-magnetic="0.18">⌂</a>
+  <a href="#skills" class="magnetic" data-magnetic="0.18"><span class="t">Skills</span></a>
+  <a href="#about" class="magnetic" data-magnetic="0.18"><span class="t">About</span></a>
+  <a href="#work" class="on magnetic" data-magnetic="0.18"><span class="t">Portfolio</span> →</a>
+  <a href="#faq" class="magnetic" data-magnetic="0.18"><span class="t">FAQ</span></a>
+  <a href="#contact" class="cta magnetic" data-magnetic="0.22">Contact me</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top" data-reveal>
+  <div class="hero-kicker"><span>/</span> application security engineer <span>/</span> bug bounty researcher</div>
+  <div class="hero-name-row">
+    <div class="hero-name" id="name-a" contenteditable data-ed="hero-l1">Shreyash</div>
+    <div class="hero-name accent" id="name-b" contenteditable data-ed="hero-l2">Tirpude</div>
+    <div class="hero-term spotlight" aria-label="terminal">
+      <div class="term-bar">
+        <span class="tdot" style="background:#ff5f57"></span><span class="tdot" style="background:#febc2e"></span><span class="tdot" style="background:#28c840"></span>
+        <span class="ttl">shreyash@portfolio: ~/security</span>
+      </div>
+      <div class="term-body" id="hero-term-body">
+        <div class="tline"><span class="p">$</span> whoami</div>
+        <div class="tline" id="term-whoami">→ appsec engineer / bug bounty researcher</div>
+        <div class="tline dim"><span class="p">$</span> cat highlights</div>
+        <div class="tline dim">• Apple Hall of Fame 2024</div>
+        <div class="tline dim">• Bentley Systems Reward 2023</div>
+        <div class="tline dim">• HackerOne — 2022 → present</div>
+        <div class="tline"><span class="p">$</span> <span class="t-caret"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tag" contenteditable data-ed="hero-tag"><span data-scramble="Application security engineer — I break things responsibly, then help fix them">Application security engineer — I break things responsibly, then help fix them</span></div>
+  <div class="hero-meta">
+    <span><span class="dot"></span><span contenteditable data-ed="hero-status">open to security roles</span></span>
+    <span contenteditable data-ed="hero-loc">Mumbai, India</span>
+    <span contenteditable data-ed="hero-time">IST · +91 93568 80446</span>
+  </div>
+  <div class="scroll-cue"><span class="tri"></span><span contenteditable data-ed="hero-scroll">scroll</span></div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="sk-label">/ What I do best</div>
+  <h2 class="sec-title"><span class="accent" contenteditable data-ed="sk-t1">The toolbox.</span> <span contenteditable data-ed="sk-t2">Skills.</span></h2>
+  <p class="sec-sub" contenteditable data-ed="sk-sub">Five areas, one set of fundamentals — everything a modern security engineer ships with.</p>
+  <div class="num-grid">
+    <div class="num-card spotlight" data-n="01."><div class="script" contenteditable data-ed="sk-1-s">Offensive + defensive</div><h3 contenteditable data-ed="sk-1-t">AppSec &amp; Pentesting</h3><p contenteditable data-ed="sk-1-d">Across the OWASP Top 10 and beyond — find it, fix it, document it.</p><div class="chips"><span class="chip" contenteditable data-ed="sk-1-c1">OWASP Top 10</span><span class="chip" contenteditable data-ed="sk-1-c2">ASVS</span><span class="chip" contenteditable data-ed="sk-1-c3">Burp Suite</span></div></div>
+    <div class="num-card spotlight" data-n="02."><div class="script" contenteditable data-ed="sk-2-s">Shift-left, not afterthought</div><h3 contenteditable data-ed="sk-2-t">Secure SDLC</h3><p contenteditable data-ed="sk-2-d">Security embedded from design to deploy — code review, pipelines, gates.</p><div class="chips"><span class="chip" contenteditable data-ed="sk-2-c1">SAST</span><span class="chip" contenteditable data-ed="sk-2-c2">DAST</span><span class="chip" contenteditable data-ed="sk-2-c3">Threat Modeling</span></div></div>
+    <div class="num-card spotlight" data-n="03."><div class="script" contenteditable data-ed="sk-3-s">Hardened by default</div><h3 contenteditable data-ed="sk-3-t">Cloud Security</h3><p contenteditable data-ed="sk-3-d">AWS-native hardening, IAM least-privilege, and detection.</p><div class="chips"><span class="chip" contenteditable data-ed="sk-3-c1">IAM</span><span class="chip" contenteditable data-ed="sk-3-c2">KMS</span><span class="chip" contenteditable data-ed="sk-3-c3">GuardDuty</span></div></div>
+    <div class="num-card spotlight" data-n="04."><div class="script" contenteditable data-ed="sk-4-s">3+ years on HackerOne</div><h3 contenteditable data-ed="sk-4-t">Bug Bounty</h3><p contenteditable data-ed="sk-4-d">Web, mobile, and API programs — reproducible, responsible reports.</p><div class="chips"><span class="chip" contenteditable data-ed="sk-4-c1">Web</span><span class="chip" contenteditable data-ed="sk-4-c2">Mobile</span><span class="chip" contenteditable data-ed="sk-4-c3">API</span></div></div>
+    <div class="num-card spotlight" data-n="05."><div class="script" contenteditable data-ed="sk-5-s">Auth that holds up</div><h3 contenteditable data-ed="sk-5-t">Protocols &amp; Auth</h3><p contenteditable data-ed="sk-5-d">Auth flows, session handling, and the attacks that break them.</p><div class="chips"><span class="chip" contenteditable data-ed="sk-5-c1">OAuth 2.0</span><span class="chip" contenteditable data-ed="sk-5-c2">OIDC</span><span class="chip" contenteditable data-ed="sk-5-c3">JWT</span></div></div>
+    <div class="num-card spotlight" data-n="06."><div class="script" contenteditable data-ed="sk-6-s">Ship it all</div><h3 contenteditable data-ed="sk-6-t">Languages</h3><p contenteditable data-ed="sk-6-d">Python, JS/TS, Go, Bash — plus Docker to ship it all.</p><div class="chips"><span class="chip" contenteditable data-ed="sk-6-c1">Python</span><span class="chip" contenteditable data-ed="sk-6-c2">JS / TS</span><span class="chip" contenteditable data-ed="sk-6-c3">Go</span></div></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="ab-label">/ About me</div>
+  <h2 class="sec-title"><span contenteditable data-ed="ab-t1">Security engineer,</span> <span class="accent" contenteditable data-ed="ab-t2">proof not adjectives.</span></h2>
+  <div class="about-grid">
+    <div class="about-copy">
+      <p contenteditable data-ed="ab-p1">Security-focused software engineer with <strong>2+ years in industry</strong> (HERE Technology) and <strong>3+ years in bug bounty</strong> (HackerOne). I don't sell fear — I find what your stack is <em>hiding</em>, then help fix it.</p>
+      <p contenteditable data-ed="ab-p2"><strong><span class="marker">Apple Hall of Fame 2024</span></strong>, <span class="marker">Bentley Systems reward</span>, and a steady stream of valid reports. OWASP Top 10 / ASVS, SAST/DAST, Burp Suite, AWS security.</p>
+      <p contenteditable data-ed="ab-p3">B.Tech in Electronics (Comp Eng minor), Sardar Patel Institute of Technology. First CTFs, first disclosures, the shift into bug bounty — all founded here.</p>
+    </div>
+    <div class="about-facts">
+      <div class="fact"><span class="k" contenteditable data-ed="ab-f1-k">location</span><span class="v" contenteditable data-ed="ab-f1-v">Mumbai, India</span></div>
+      <div class="fact"><span class="k" contenteditable data-ed="ab-f2-k">bounty</span><span class="v" contenteditable data-ed="ab-f2-v">3+ yrs · HackerOne</span></div>
+      <div class="fact"><span class="k" contenteditable data-ed="ab-f3-k">awards</span><span class="v" contenteditable data-ed="ab-f3-v">Apple HOF 2024 · Bentley</span></div>
+      <div class="fact"><span class="k" contenteditable data-ed="ab-f4-k">education</span><span class="v" contenteditable data-ed="ab-f4-v">B.Tech (Comp Eng minor)</span></div>
+      <div class="fact"><span class="k" contenteditable data-ed="ab-f5-k">status</span><span class="v" contenteditable data-ed="ab-f5-v">Open to security roles</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AWARDS ===== -->
+<section class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="aw-label">/ International credibility</div>
+  <h2 class="sec-title"><span contenteditable data-ed="aw-t1">Awards &amp;</span> <span class="accent" contenteditable data-ed="aw-t2">Recognition</span></h2>
+  <div class="awards">
+    <div class="award-row"><span class="a" contenteditable data-ed="aw-1-a">Apple Security Hall of Fame</span><span class="o" contenteditable data-ed="aw-1-o">Apple</span><span class="d" contenteditable data-ed="aw-1-d">2024</span></div>
+    <div class="award-row"><span class="a" contenteditable data-ed="aw-2-a">Bentley Systems Reward</span><span class="o" contenteditable data-ed="aw-2-o">Bentley Systems</span><span class="d" contenteditable data-ed="aw-2-d">2023</span></div>
+    <div class="award-row"><span class="a" contenteditable data-ed="aw-3-a">Elastic Hackathon — Top 5</span><span class="o" contenteditable data-ed="aw-3-o">Elastic</span><span class="d" contenteditable data-ed="aw-3-d">—</span></div>
+    <div class="award-row"><span class="a" contenteditable data-ed="aw-4-a">Amazon Smbhav — Top 20</span><span class="o" contenteditable data-ed="aw-4-o">Amazon</span><span class="d" contenteditable data-ed="aw-4-d">—</span></div>
+  </div>
+  <div class="portfolio-card">
+    <div class="wreath" aria-hidden="true">✺</div>
+    <div class="small" contenteditable data-ed="pc-small">Click here to see my</div>
+    <h3><span contenteditable data-ed="pc-t1">Complete</span> <span class="accent" contenteditable data-ed="pc-t2">Portfolio</span></h3>
+    <div class="note" contenteditable data-ed="pc-note">Updated showcase — HackerOne profile · GitHub · résumé</div>
+    <a class="btn btn-primary" href="#work"><span contenteditable data-ed="pc-btn">View Portfolio →</span></a>
+  </div>
+</section>
+
+<!-- ===== WORK ===== -->
+<section id="work" class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="xp-label">/ Career</div>
+  <h2 class="sec-title"><span contenteditable data-ed="xp-t1">Work</span> <span class="accent" contenteditable data-ed="xp-t2">Experience</span></h2>
+  <p class="sec-sub" contenteditable data-ed="xp-sub">Dated evidence, reverse-chronological.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date" contenteditable data-ed="xp-1-date">2024 — Present</div>
+      <div class="tl-role" contenteditable data-ed="xp-1-role">Software Engineer II — Security &amp; AI</div>
+      <div class="tl-org" contenteditable data-ed="xp-1-org">HERE Technology</div>
+      <p class="tl-desc" contenteditable data-ed="xp-1-desc">Embedded security in the SDLC: threat modeling, code review, SAST/DAST pipelines against OWASP Top 10 and ASVS. Secure-by-design at the security + AI intersection.</p>
+      <div class="tl-tags"><span class="tl-tag hl" contenteditable data-ed="xp-1-t1">threat modeling</span><span class="tl-tag hl" contenteditable data-ed="xp-1-t2">sast · dast</span><span class="tl-tag" contenteditable data-ed="xp-1-t3">owasp · asvs</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" contenteditable data-ed="xp-2-date">2022 — Present</div>
+      <div class="tl-role" contenteditable data-ed="xp-2-role">Independent Security Researcher</div>
+      <div class="tl-org" contenteditable data-ed="xp-2-org">HackerOne · Apple · Bentley Systems</div>
+      <p class="tl-desc" contenteditable data-ed="xp-2-desc">3+ years of bug bounty across web, mobile, and API programs. Apple Hall of Fame 2024. Bentley Systems reward. Burp Suite, recon, OWASP Top 10 exploitation.</p>
+      <div class="tl-tags"><span class="tl-tag hl" contenteditable data-ed="xp-2-t1">apple hof 2024</span><span class="tl-tag hl" contenteditable data-ed="xp-2-t2">bentley reward</span><span class="tl-tag" contenteditable data-ed="xp-2-t3">web · mobile · api</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" contenteditable data-ed="xp-3-date">2020 — 2024</div>
+      <div class="tl-role" contenteditable data-ed="xp-3-role">B.Tech, Electronics Engineering (Minor: Comp Eng)</div>
+      <div class="tl-org" contenteditable data-ed="xp-3-org">Sardar Patel Institute of Technology</div>
+      <p class="tl-desc" contenteditable data-ed="xp-3-desc">Founded the security focus here — first CTFs, first disclosures, the shift into bug bounty.</p>
+      <div class="tl-tags"><span class="tl-tag" contenteditable data-ed="xp-3-t1">ctf</span><span class="tl-tag" contenteditable data-ed="xp-3-t2">disclosure</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SELECTED WORK ===== -->
+<section class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="pr-label">/ Selected builds</div>
+  <h2 class="sec-title"><span contenteditable data-ed="pr-t1">Selected</span> <span class="accent" contenteditable data-ed="pr-t2">Work</span></h2>
+  <p class="sec-sub" contenteditable data-ed="pr-sub">Hover the titles to decrypt them.</p>
+  <div class="work-rows">
+    <div class="work-row">
+      <div>
+        <div class="w-name" contenteditable data-ed="pr-1-name">Legalese-to-Simplese <span class="tag" contenteditable data-ed="pr-1-tag">Elastic · Top 5</span></div>
+        <p class="w-desc" contenteditable data-ed="pr-1-desc">Legal text simplification tool. Search-driven pipeline over legal docs.</p>
+      </div>
+      <a class="w-link" href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="pr-1-link">View on GitHub →</a>
+    </div>
+    <div class="work-row">
+      <div>
+        <div class="w-name" contenteditable data-ed="pr-2-name">BorderlessBiz <span class="tag" contenteditable data-ed="pr-2-tag">Amazon Smbhav · Top 20</span></div>
+        <p class="w-desc" contenteditable data-ed="pr-2-desc">Cross-border business platform. Enables small businesses to go global.</p>
+      </div>
+      <a class="w-link" href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="pr-2-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="faq-label">/ Common questions and answers</div>
+  <h2 class="sec-title"><span contenteditable data-ed="faq-t1">Frequently Asked</span> <span class="accent" contenteditable data-ed="faq-t2">Questions</span></h2>
+  <div class="faq">
+    <div class="faq-item"><div class="faq-q"><span contenteditable data-ed="faq-1-q">What kind of roles are you open to?</span><span class="plus">+</span></div><div class="faq-a"><div class="in" contenteditable data-ed="faq-1-a">Application security engineer roles, bug bounty collaborations, and security consulting. Also open to speaking or writing on AppSec topics.</div></div></div>
+    <div class="faq-item"><div class="faq-q"><span contenteditable data-ed="faq-2-q">How do you approach responsible disclosure?</span><span class="plus">+</span></div><div class="faq-a"><div class="in" contenteditable data-ed="faq-2-a">Coordinated disclosure only: reproduce, minimize impact, document, and report through the vendor's program. 100% of my reports have been handled responsibly.</div></div></div>
+    <div class="faq-item"><div class="faq-q"><span contenteditable data-ed="faq-3-q">Do you have a PGP key?</span><span class="plus">+</span></div><div class="faq-a"><div class="in" contenteditable data-ed="faq-3-a">Yes — available on request. Preferred for anything sensitive. Response time is under 48 hours.</div></div></div>
+    <div class="faq-item"><div class="faq-q"><span contenteditable data-ed="faq-4-q">Can you help secure an existing product?</span><span class="plus">+</span></div><div class="faq-a"><div class="in" contenteditable data-ed="faq-4-a">Absolutely. Threat modeling, code review, SAST/DAST pipeline setup, and AWS security hardening — from assessment to remediation.</div></div></div>
+    <div class="faq-item"><div class="faq-q"><span contenteditable data-ed="faq-5-q">Where can I verify your claims?</span><span class="plus">+</span></div><div class="faq-a"><div class="in" contenteditable data-ed="faq-5-a">Apple Hall of Fame 2024 (public), HackerOne profile, Bentley Systems reward, GitHub, and LinkedIn — all linked in the contact section.</div></div></div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="container" data-reveal>
+  <div class="sec-label" contenteditable data-ed="ct-label">/ Let's get started</div>
+  <h2 class="sec-title"><span contenteditable data-ed="ct-t1">Let's</span> <span class="accent shimmer" contenteditable data-ed="ct-t2">work together</span></h2>
+  <p class="sec-sub" contenteditable data-ed="ct-sub">AppSec roles, bounty collabs, or just to talk shop — my inbox is open.</p>
+  <div class="contact-grid">
+    <div class="contact-list">
+      <div><span class="k" contenteditable data-ed="ct-k-email">email:</span><a href="mailto:tshreyash2002@gmail.com" contenteditable data-ed="ct-v-email">tshreyash2002@gmail.com</a></div>
+      <div><span class="k" contenteditable data-ed="ct-k-phone">phone:</span><a href="tel:+919356880446" contenteditable data-ed="ct-v-phone">+91 93568 80446</a></div>
+      <div><span class="k" contenteditable data-ed="ct-k-loc">location:</span><span contenteditable data-ed="ct-v-loc">Mumbai, India</span></div>
+      <div><span class="k" contenteditable data-ed="ct-k-gh">github:</span><a href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ct-v-gh">shreyashtirpude</a></div>
+      <div><span class="k" contenteditable data-ed="ct-k-li">linkedin:</span><a href="https://www.linkedin.com/in/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ct-v-li">shreyashtirpude</a></div>
+      <div><span class="k" contenteditable data-ed="ct-k-h1">hackerone:</span><a href="https://hackerone.com/shreyash" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ct-v-h1">shreyash</a></div>
+      <p class="mono" style="color:var(--muted2);font-size:.78rem;margin-top:.6rem;font-family:'JetBrains Mono',monospace" contenteditable data-ed="ct-note">// pgp available on request · response &lt; 48h</p>
+    </div>
+    <div class="card" style="background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1.6rem">
+      <form onsubmit="event.preventDefault();var f=this;window.location.href='mailto:tshreyash2002@gmail.com?subject='+encodeURIComponent('Portfolio contact — '+(f.name.value||''))+'&body='+encodeURIComponent((f.message.value||'')+'\n\n— '+(f.name.value||'')+'\n'+(f.email.value||''));f.reset();showToast('✓ opening your mail client');return false">
+        <div class="form-field"><label for="wf-name" contenteditable data-ed="ct-l-name">Name</label><input id="wf-name" name="name" type="text" required></div>
+        <div class="form-field"><label for="wf-email" contenteditable data-ed="ct-l-email">Email</label><input id="wf-email" name="email" type="email" required></div>
+        <div class="form-field"><label for="wf-msg" contenteditable data-ed="ct-l-msg">Message</label><textarea id="wf-msg" name="message" rows="4" required></textarea></div>
+        <div class="honeypot"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn btn-primary" type="submit" contenteditable data-ed="ct-submit">Send message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- bug-feed ticker (security ops feed marquee) -->
+  <section class="ticker" aria-label="Recent bug bounty activity">
+    <div class="ticker__viewport" aria-hidden="true">
+      <div class="ticker__track">
+        <span class="ticker__group">
+          <span class="ticker__item">IDOR in payment flow — patched</span>
+          <span class="ticker__item">XSS in oauth-redirect — verified</span>
+          <span class="ticker__item">Apple Hall of Fame 2024</span>
+          <span class="ticker__item">$50k+ bounties earned</span>
+          <span class="ticker__item">RCE — responsibly disclosed</span>
+          <span class="ticker__item">Open to security roles</span>
+          <span class="ticker__item">OWASP Top 10 · ASVS</span>
+          <span class="ticker__item">Bug bounty — 2022 → present</span>
+        </span>
+        <span class="ticker__group ticker__group--dup" aria-hidden="true">
+          <span class="ticker__item">IDOR in payment flow — patched</span>
+          <span class="ticker__item">XSS in oauth-redirect — verified</span>
+          <span class="ticker__item">Apple Hall of Fame 2024</span>
+          <span class="ticker__item">$50k+ bounties earned</span>
+          <span class="ticker__item">RCE — responsibly disclosed</span>
+          <span class="ticker__item">Open to security roles</span>
+          <span class="ticker__item">OWASP Top 10 · ASVS</span>
+          <span class="ticker__item">Bug bounty — 2022 → present</span>
+        </span>
+      </div>
+    </div>
+    <p class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Recent activity: IDOR in payment flow patched, XSS in oauth redirect verified, Apple Hall of Fame 2024, 50 thousand dollars in bounties, RCE responsibly disclosed, open to security roles, OWASP Top 10 and ASVS, bug bounty 2022 to present.</p>
+  </section>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <span contenteditable data-ed="ft-copy">© 2026 Shreyash Tirpude — wireframe v6 · nikola-style exact replica</span>
+      <span style="display:flex;gap:1.2rem">
+        <a href="https://github.com/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ft-gh">GitHub</a>
+        <a href="https://www.linkedin.com/in/shreyashtirpude" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ft-li">LinkedIn</a>
+        <a href="https://hackerone.com/shreyash" target="_blank" rel="noopener noreferrer" contenteditable data-ed="ft-h1">HackerOne</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY = "portfolio-wireframe-v6-edits";
+  var statusEl = document.getElementById("status");
+  var toastEl = document.getElementById("toast");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function(){ toastEl.classList.remove("show"); }, 2600);
+  }
+  window.showToast = showToast;
+
+  /* scroll progress */
+  var prog = document.getElementById("scroll-progress");
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* Lenis smooth scroll (Nikola uses Lenis) */
+  var lenis = null;
+  if (!reduceMotion && typeof window.Lenis === "function") {
+    lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    // keep scroll-progress in sync with Lenis
+    lenis.on("scroll", function(e){ if (prog) prog.style.width = (e.progress * 100) + "%"; });
+  }
+
+  /* split-type name reveal (Nikola uses SplitType) */
+  function splitName(){
+    ["name-a","name-b"].forEach(function(id){
+      var el = document.getElementById(id);
+      if (!el) return;
+      var text = el.textContent;
+      var html = "";
+      for (var i = 0; i < text.length; i++){
+        var ch = text[i];
+        html += ch === " " ? " " : '<span class="sp">' + ch + "</span>";
+      }
+      el.innerHTML = html;
+    });
+    if (!reduceMotion) {
+      setTimeout(function(){
+        ["name-a","name-b"].forEach(function(id){
+          var el = document.getElementById(id);
+          if (el) el.classList.add("in");
+        });
+      }, 700);
+    } else {
+      ["name-a","name-b"].forEach(function(id){
+        var el = document.getElementById(id);
+        if (el) el.classList.add("in");
+      });
+    }
+  }
+  splitName();
+
+  /* terminal typing (types the whoami output) */
+  var termBody = document.getElementById("hero-term-body");
+  var termOut = document.getElementById("term-whoami");
+  if (termOut && !reduceMotion) {
+    var target = termOut.textContent;
+    termOut.textContent = "";
+    var ci = 0;
+    var typeTick = function(){
+      ci++;
+      termOut.textContent = target.slice(0, ci);
+      if (ci < target.length) setTimeout(typeTick, 14);
+    };
+    setTimeout(typeTick, 2400);
+  } else if (termOut) {
+    termOut.textContent = "→ appsec engineer / bug bounty researcher";
+  }
+
+  /* reveal */
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* cursor scan-light over honeycomb */
+  var scanlight = document.getElementById("scanlight");
+  var finePointer = window.matchMedia("(pointer: fine)").matches;
+  if (scanlight) {
+    if (!reduceMotion) scanlight.classList.add("idle");
+    if (finePointer) {
+      window.addEventListener("pointermove", function(e){
+        scanlight.classList.remove("idle");
+        scanlight.style.setProperty("--lx", (e.clientX / window.innerWidth * 100).toFixed(2) + "%");
+        scanlight.style.setProperty("--ly", (e.clientY / window.innerHeight * 100).toFixed(2) + "%");
+      }, { passive: true });
+      window.addEventListener("pointerleave", function(){
+        scanlight.style.removeProperty("--lx");
+        scanlight.style.removeProperty("--ly");
+        if (!reduceMotion) scanlight.classList.add("idle");
+      });
+    }
+  }
+
+  /* custom cursor (dot + trailing ring) */
+  var cDot = document.querySelector(".cursor-dot");
+  var cRing = document.querySelector(".cursor-ring");
+  if (cDot && cRing && finePointer && !reduceMotion) {
+    document.documentElement.classList.add("has-cursor");
+    var mx = -100, my = -100, rx = -100, ry = -100, raf = null;
+    window.addEventListener("mousemove", function(e){
+      mx = e.clientX; my = e.clientY;
+      cDot.style.opacity = 1;
+      cDot.style.transform = "translate(" + mx + "px," + my + "px)";
+      if (!raf) raf = requestAnimationFrame(tickCursor);
+    }, { passive: true });
+    function tickCursor(){
+      rx += (mx - rx) * .16; ry += (my - ry) * .16;
+      cRing.style.transform = "translate(" + rx + "px," + ry + "px)";
+      if (Math.abs(mx - rx) < .05 && Math.abs(my - ry) < .05) { raf = null; return; }
+      raf = requestAnimationFrame(tickCursor);
+    }
+    document.addEventListener("mouseover", function(e){
+      if (e.target.closest && e.target.closest("a,button,summary,[contenteditable]")) cRing.classList.add("is-hover");
+    });
+    document.addEventListener("mouseout", function(e){
+      if (e.target.closest && e.target.closest("a,button,summary,[contenteditable]")) cRing.classList.remove("is-hover");
+    });
+  }
+
+  /* magnetic elements */
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll(".magnetic").forEach(function(el){
+      var s = parseFloat(el.getAttribute("data-magnetic") || "0.25");
+      el.addEventListener("mousemove", function(e){
+        var r = el.getBoundingClientRect();
+        var dx = e.clientX - (r.left + r.width / 2);
+        var dy = e.clientY - (r.top + r.height / 2);
+        el.style.transform = "translate(" + (dx * s) + "px," + (dy * s) + "px)";
+      });
+      el.addEventListener("mouseleave", function(){ el.style.transform = ""; });
+    });
+  }
+
+  /* spotlight + tilt cards */
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll(".spotlight").forEach(function(card){
+      card.addEventListener("mousemove", function(e){
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        card.style.setProperty("--mx", (px * 100) + "%");
+        card.style.setProperty("--my", (py * 100) + "%");
+        card.style.setProperty("--rx", ((0.5 - py) * 6) + "deg");
+        card.style.setProperty("--ry", ((px - 0.5) * 6) + "deg");
+      });
+      card.addEventListener("mouseleave", function(){
+        card.style.setProperty("--rx", "0deg");
+        card.style.setProperty("--ry", "0deg");
+      });
+    });
+  }
+
+  /* marker highlight on scroll */
+  document.querySelectorAll(".marker").forEach(function(el){
+    if (reduceMotion) { el.classList.add("is-in"); return; }
+    var mIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { el.classList.add("is-in"); mIo.disconnect(); } });
+    }, { threshold: 0.6 });
+    mIo.observe(el);
+  });
+
+  /* text scramble (hover) */
+  var GLYPHS = "!<>-_\\/[]{}—=+*^?#$%&01";
+  document.querySelectorAll("[data-scramble]").forEach(function(el){
+    var finalText = el.getAttribute("data-scramble") || el.textContent;
+    var orig = el.textContent;
+    el.addEventListener("pointerenter", function(){ scrambleOnce(el, finalText); });
+    el.addEventListener("pointerleave", function(){ el.textContent = orig; });
+  });
+  function scrambleOnce(el, finalText){
+    if (reduceMotion) { el.textContent = finalText; return; }
+    var frames = Math.max(4, Math.min(14, Math.round(finalText.length / 2)));
+    var f = 0;
+    (function frame(){
+      if (f >= frames) { el.textContent = finalText; return; }
+      f++;
+      var resolved = Math.floor(finalText.length * (f / frames));
+      var out = "";
+      for (var i = 0; i < finalText.length; i++){
+        var ch = finalText[i];
+        if (ch === " ") out += " ";
+        else if (i < resolved) out += ch;
+        else out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      }
+      el.textContent = out;
+      setTimeout(frame, 26);
+    })();
+  }
+
+  /* FAQ accordion */
+  document.querySelectorAll(".faq-item").forEach(function(item){
+    var q = item.querySelector(".faq-q");
+    q.addEventListener("click", function(){
+      var open = item.classList.contains("open");
+      document.querySelectorAll(".faq-item.open").forEach(function(o){ o.classList.remove("open"); });
+      if (!open) item.classList.add("open");
+    });
+  });
+
+  /* preloader counter (Nikola signature) */
+  var pl = document.getElementById("preloader");
+  var plNum = document.getElementById("pl-num");
+  function runPreloader(){
+    if (reduceMotion) { plNum.textContent = "100"; pl.classList.add("done"); return; }
+    var p = 0;
+    var tick = function(){
+      p = Math.min(p + Math.floor(Math.random() * 14) + 6, 100);
+      plNum.textContent = String(p);
+      if (p >= 100) { setTimeout(function(){ pl.classList.add("done"); }, 250); return; }
+      setTimeout(tick, 60 + Math.random() * 90);
+    };
+    setTimeout(tick, 300);
+  }
+  runPreloader();
+
+  /* edit autosave */
+  function collect(){
+    var m = {};
+    document.querySelectorAll("[data-ed]").forEach(function(el){ m[el.getAttribute("data-ed")] = el.innerHTML; });
+    return m;
+  }
+  function apply(m){
+    document.querySelectorAll("[data-ed]").forEach(function(el){
+      var k = el.getAttribute("data-ed");
+      if (m[k] != null) el.innerHTML = m[k];
+    });
+  }
+  function saveEdits(){
+    try { localStorage.setItem(KEY, JSON.stringify(collect())); } catch(e){}
+    statusEl.textContent = "✓ autosaved " + new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  }
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    if (Object.keys(saved).length) apply(saved);
+  } catch(e){}
+  document.addEventListener("input", function(e){
+    if (e.target.closest && e.target.closest("[contenteditable]")) saveEdits();
+  });
+  document.addEventListener("focusin", function(e){
+    if (e.target.closest && e.target.closest("[contenteditable]")) statusEl.textContent = "editing…";
+  });
+  document.addEventListener("keydown", function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s"){ e.preventDefault(); saveHtml(); }
+  });
+
+  window.saveHtml = function(){
+    var html = "<!doctype html>\n" + document.documentElement.outerHTML;
+    var blob = new Blob([html], {type:"text/html"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "portfolio-wireframe-v6-edited.html";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    statusEl.textContent = "✓ html saved";
+    showToast("💾 Saved portfolio-wireframe-v6-edited.html — edits included");
+  };
+  window.exportJson = function(){
+    var out = {};
+    document.querySelectorAll("[data-ed]").forEach(function(el){ out[el.getAttribute("data-ed")] = el.innerText.trim(); });
+    var blob = new Blob([JSON.stringify(out, null, 2)], {type:"application/json"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "wireframe-v6-content.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    statusEl.textContent = "✓ json exported";
+    showToast("⇩ wireframe-v6-content.json — I can port this into the site");
+  };
+  window.resetEdits = function(){
+    if (!confirm("Reset all wireframe v6 edits back to default?")) return;
+    localStorage.removeItem(KEY);
+    location.reload();
+  };
+
+  setTimeout(function(){ showToast("✎ Click any text to edit it — autosaves to this browser."); }, 2200);
+})();
+</script>
+</body>
+</html>
