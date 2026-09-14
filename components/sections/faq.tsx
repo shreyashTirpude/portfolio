@@ -43,30 +43,32 @@ export default function FAQ() {
           {FAQS.map((faq, i) => {
             const isOpen = open === i;
             return (
-              <div key={faq.q} className={`faq-item rv ${isOpen ? "open" : ""}`}>
-                <button
-                  id={`faq-trigger-${i}`}
-                  className="faq-q"
-                  type="button"
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-panel-${i}`}
-                  onClick={() => setOpen(isOpen ? null : i)}
-                >
-                  <span>{faq.q}</span>
-                  <span className="plus" aria-hidden="true">
-                    +
-                  </span>
-                </button>
-                <div
-                  id={`faq-panel-${i}`}
-                  className="faq-a"
-                  role="region"
-                  aria-labelledby={`faq-trigger-${i}`}
-                  aria-hidden={!isOpen}
-                  inert={!isOpen}
-                >
-                  <div className="in">
-                    <p>{faq.a}</p>
+              <div key={faq.q} className="rv">
+                <div className={`faq-item ${isOpen ? "open" : ""}`}>
+                  <button
+                    id={`faq-trigger-${i}`}
+                    className="faq-q"
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${i}`}
+                    onClick={() => setOpen(isOpen ? null : i)}
+                  >
+                    <span>{faq.q}</span>
+                    <span className="plus" aria-hidden="true">
+                      +
+                    </span>
+                  </button>
+                  <div
+                    id={`faq-panel-${i}`}
+                    className="faq-a"
+                    role="region"
+                    aria-labelledby={`faq-trigger-${i}`}
+                    aria-hidden={!isOpen}
+                    inert={!isOpen}
+                  >
+                    <div className="in">
+                      <p>{faq.a}</p>
+                    </div>
                   </div>
                 </div>
               </div>

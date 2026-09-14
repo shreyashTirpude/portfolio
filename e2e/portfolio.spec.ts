@@ -44,6 +44,10 @@ test("FAQ is keyboard operable", async ({ page }) => {
   await trigger.press("Enter");
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(page.locator(`#${await trigger.getAttribute("aria-controls")}`)).toBeVisible();
+  await expect(trigger).toBeVisible();
+  await expect
+    .poll(() => trigger.evaluate((element) => getComputedStyle(element.closest(".rv")!).opacity))
+    .toBe("1");
 });
 
 test("reduced motion keeps content available", async ({ page }) => {
