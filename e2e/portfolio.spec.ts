@@ -34,6 +34,12 @@ test("navigation reaches selected work", async ({ page }) => {
   await expect(page).toHaveURL(/#work$/);
   await expect(page.locator("#work")).toBeInViewport();
   await expect(page.locator('a[href="#work"][aria-current="location"]')).not.toHaveCount(0);
+  const firstProjectVisual = page.locator(".case-visual-shell").first();
+  await firstProjectVisual.scrollIntoViewIfNeeded();
+  await expect(firstProjectVisual).toHaveClass(/in/);
+  await expect
+    .poll(() => firstProjectVisual.locator(".case-visual").evaluate((element) => getComputedStyle(element).clipPath))
+    .not.toContain("100%");
 });
 
 test("FAQ is keyboard operable", async ({ page }) => {
@@ -58,4 +64,23 @@ test("reduced motion keeps content available", async ({ page }) => {
   await expect(page.locator("#showcase .scene")).toHaveCount(3);
   await expect(page.locator("#showcase .scene").first()).toBeVisible();
   await expect(page.locator("html")).not.toHaveClass(/lenis/);
+});
+
+test("mobile menu contains focus and restores it when closed", async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.includes("mobile"), "Mobile navigation is only shown below 900px");
+  await openPortfolio(page);
+
+  const menuButton = page.locator(".menu-button");
+  await expect(menuButton).toHaveAccessibleName("Menu");
+  await menuButton.click();
+  await expect(menuButton).toHaveAccessibleName("Close");
+  const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
+  await expect(mobileNav).toBeVisible();
+  await expect(mobileNav.getByRole("link", { name: /About/ })).toBeFocused();
+
+  await page.keyboard.press("Shift+Tab");
+  await expect(menuButton).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(mobileNav).toBeHidden();
+  await expect(menuButton).toBeFocused();
 });

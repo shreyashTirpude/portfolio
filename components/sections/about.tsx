@@ -21,7 +21,7 @@ export default function About() {
         </div>
         <div className="about-v11-copy">
           <div className="eyebrow rv">01 · about</div>
-          <h2 className="section-title v11-title rv rv-d1">
+          <h2 className="section-title v11-title rv rv-d1" aria-label="Security engineering with verified results.">
             <LineReveal>Security engineering</LineReveal>
             <LineReveal delay={0.1}><span className="serif">with verified results.</span></LineReveal>
           </h2>

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 export function AmbientFX() {
   useEffect(() => {
     const bar = document.getElementById("scrollBar");
+    const spotlight = document.querySelector<HTMLElement>(".spotlight");
     if (!bar) return;
     let ticking = false;
     const onScroll = () => {
@@ -21,7 +22,22 @@ export function AmbientFX() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const onPointerMove = (event: PointerEvent) => {
+      if (!spotlight) return;
+      spotlight.style.setProperty("--spot-x", `${event.clientX}px`);
+      spotlight.style.setProperty("--spot-y", `${event.clientY}px`);
+    };
+    if (finePointer && !reducedMotion) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+    }
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointermove", onPointerMove);
+    };
   }, []);
 
   return (

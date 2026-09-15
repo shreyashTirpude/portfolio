@@ -93,9 +93,9 @@ export default function Showcase() {
           ))}
         </div>
         <div className="step-dots" aria-hidden="true">
-          <span className="on" />
-          <span />
-          <span />
+          <span className="on"><i>01</i></span>
+          <span><i>02</i></span>
+          <span><i>03</i></span>
         </div>
       </div>
     </section>

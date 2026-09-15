@@ -21,20 +21,20 @@ export function Preloader() {
     sessionStorage.setItem("portfolio-intro-seen", "true");
     let c = 0;
     const tick = setInterval(() => {
-      c = Math.min(100, c + Math.floor(Math.random() * 12) + 6);
+      c = Math.min(100, c + Math.floor(Math.random() * 10) + 12);
       setPct(c);
       if (barRef.current) barRef.current.style.width = `${c}%`;
       if (c >= 100) {
         clearInterval(tick);
-        setTimeout(() => setDone(true), 160);
-        setTimeout(() => setHidden(true), 850);
+        setTimeout(() => setDone(true), 80);
+        setTimeout(() => setHidden(true), 620);
       }
-    }, 42);
+    }, 34);
     const safety = setTimeout(() => {
       clearInterval(tick);
       setDone(true);
-      setTimeout(() => setHidden(true), 700);
-    }, 1800);
+      setTimeout(() => setHidden(true), 560);
+    }, 1000);
     return () => {
       clearInterval(tick);
       clearTimeout(safety);
