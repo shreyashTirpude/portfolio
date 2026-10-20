@@ -29,7 +29,6 @@ function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="contact-form rv">
-      <input type="text" name="company" tabIndex={-1} autoComplete="off" className="honeypot" aria-hidden="true" />
       <div className="form-head">
         <h3>Send a note</h3>
         <p>{"// opens your mail client prefilled"}</p>

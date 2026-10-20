@@ -376,7 +376,6 @@ section { position: relative; padding-block: clamp(4.5rem, 9vw, 8rem); border-to
 .form-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.2rem; }
 .form-note { font: 400 0.58rem/1.6 var(--mono); color: var(--muted-2); text-transform: uppercase; letter-spacing: 0.06em; }
 .form-note.ok { color: var(--accent); }
-.honeypot { position: absolute; left: -9999px; opacity: 0; }
 @media (max-width: 800px) { .contact-body { grid-template-columns: 1fr; } .contact-meta { grid-template-columns: 1fr; } .form-grid { grid-template-columns: 1fr; } }
 
 /* ============ FOOTER ============ */
