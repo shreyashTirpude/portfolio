@@ -42,3 +42,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# gstack QA artifacts (local evidence only)
+.gstack
+
+# macOS
+.DS_Store
