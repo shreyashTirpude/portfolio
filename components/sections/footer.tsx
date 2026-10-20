@@ -10,23 +10,24 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-inner">
-          <div className="brand">
-            SHREYASH<span className="dot">.</span>
+        <div className="footer-top">
+          <div className="footer-brand">
+            SHREYASH<i>.</i>
           </div>
-          <div className="copy">© 2026 · application security engineer</div>
-          <nav aria-label="Footer">
+          <nav className="footer-links" aria-label="Footer">
             {LINKS.map((link) => (
               <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
-                {link.label}
+                {link.label} <span aria-hidden="true">↗</span>
               </a>
             ))}
+            <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
           </nav>
         </div>
+        <div className="footer-bottom">
+          <span>© 2026 Shreyash Tirpude · application security engineer</span>
+          <span><code>Space Grotesk / Inter / JetBrains Mono</code> · Next.js 16</span>
+        </div>
       </div>
-      <a href="#top" className="back-top">
-        ↑ back to top
-      </a>
     </footer>
   );
 }

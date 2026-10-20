@@ -14,9 +14,11 @@ export function useScrollSpy(ids: string[], offset = 120) {
       requestAnimationFrame(() => {
         const y = window.scrollY + offset;
         let currentId = ids[0] ?? "";
+        let currentTop = -1;
         for (const id of ids) {
           const sec = document.getElementById(id);
-          if (sec && sec.offsetTop <= y) {
+          if (sec && sec.offsetTop <= y && sec.offsetTop >= currentTop) {
+            currentTop = sec.offsetTop;
             currentId = id;
           }
         }

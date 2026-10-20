@@ -2,22 +2,16 @@
 
 import { useState, type FormEvent } from "react";
 import { contact } from "@/lib/data/resume";
-import { LineReveal } from "@/components/blocks/line-reveal";
 import { MagneticButton } from "@/components/blocks/magnetic-button";
 
-const ROWS = [
-  { label: "email", value: contact.email, href: `mailto:${contact.email}`, external: false },
-  {
-    label: "phone",
-    value: contact.phone,
-    href: `tel:${contact.phone.replace(/[\s-]/g, "")}`,
-    external: false,
-  },
-  { label: "location", value: contact.location, href: undefined, external: false },
-  { label: "github", value: "shreyashTirpude", href: contact.links.github, external: true },
-  { label: "linkedin", value: "shreyash-tirpude", href: contact.links.linkedin, external: true },
-  { label: "hackerone", value: "shreyashcipher", href: contact.links.hackerone, external: true },
-] as const;
+const META = [
+  { k: "Base", v: contact.location },
+  { k: "Local time", v: contact.timezone },
+  { k: "Email", v: contact.email, href: `mailto:${contact.email}` },
+  { k: "Phone", v: contact.phone, href: `tel:${contact.phone.replace(/[\s-]/g, "")}` },
+  { k: "GitHub", v: "shreyashTirpude", href: contact.links.github, external: true },
+  { k: "LinkedIn", v: "shreyash-tirpude", href: contact.links.linkedin, external: true },
+];
 
 function ContactForm() {
   const [sent, setSent] = useState(false);
@@ -34,79 +28,97 @@ function ContactForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="form-card rv rv-d1">
-      <input
-        type="text"
-        name="company"
-        tabIndex={-1}
-        autoComplete="off"
-        className="honeypot"
-        aria-hidden="true"
-      />
-      <div className="form-field">
-        <label htmlFor="v8-name">Name</label>
-        <input id="v8-name" name="name" type="text" required placeholder="Ada Lovelace" />
+    <form onSubmit={onSubmit} className="contact-form rv">
+      <input type="text" name="company" tabIndex={-1} autoComplete="off" className="honeypot" aria-hidden="true" />
+      <div className="form-head">
+        <h3>Send a note</h3>
+        <p>{"// opens your mail client prefilled"}</p>
       </div>
-      <div className="form-field">
-        <label htmlFor="v8-email">Email</label>
-        <input id="v8-email" name="email" type="email" required placeholder="you@example.com" />
+      <div className="form-grid">
+        <div className="form-field">
+          <label htmlFor="v12-name">Name</label>
+          <input id="v12-name" name="name" type="text" required placeholder="Ada Lovelace" />
+        </div>
+        <div className="form-field">
+          <label htmlFor="v12-email">Email</label>
+          <input id="v12-email" name="email" type="email" required placeholder="you@example.com" />
+        </div>
+        <div className="form-field full">
+          <label htmlFor="v12-msg">Message</label>
+          <textarea id="v12-msg" name="message" rows={4} required placeholder="Scope, role, or the bug you want a second pair of eyes on." />
+        </div>
       </div>
-      <div className="form-field">
-        <label htmlFor="v8-msg">Message</label>
-        <textarea id="v8-msg" name="message" rows={4} required placeholder="Found a bug? Let's talk." />
-      </div>
-      <MagneticButton>
-        Send message <span className="arr">→</span>
-      </MagneticButton>
-      {sent ? (
-        <p role="status" aria-live="polite" className="mono" style={{ marginTop: "0.9rem", fontSize: "0.75rem", color: "var(--accent-bright)" }}>
-          {"// opening your mail client…"}
+      <div className="form-foot">
+        <MagneticButton>
+          Send message <span className="arr" aria-hidden="true">→</span>
+        </MagneticButton>
+        <p className={`form-note ${sent ? "ok" : ""}`} role="status" aria-live="polite">
+          {sent ? "// opening your mail client…" : "// no tracking, no third-party form service"}
         </p>
-      ) : (
-        <p className="mono" style={{ marginTop: "0.9rem", fontSize: "0.75rem", color: "var(--muted2)" }}>
-          {"// opens your mail client with the message prefilled"}
-        </p>
-      )}
+      </div>
     </form>
   );
 }
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = () => {
+    void navigator.clipboard?.writeText(contact.email).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   return (
     <section id="contact">
       <div className="container">
-        <div className="sec-head">
-          <div className="eyebrow rv">07 · contact</div>
-          <h2 className="section-title rv rv-d1">
-            <LineReveal>
-              Let&apos;s <span className="serif">work together.</span>
-            </LineReveal>
-          </h2>
-          <p className="rv rv-d2" style={{ color: "var(--muted)", marginTop: "1rem", maxWidth: "48ch" }}>
-            AppSec roles, bounty collabs, or just to talk shop — my inbox is open.
-          </p>
+        <div className="sec-meta">
+          <b>[07]</b>
+          <i className="rule" aria-hidden="true" />
+          <span>contact · open to work</span>
         </div>
-        <div className="contact-grid">
-          <div className="contact-list rv">
-            {ROWS.map((row) => (
-              <div className="contact-row" key={row.label}>
-                <span className="k">{row.label}</span>
-                {row.href ? (
-                  <a
-                    href={row.href}
-                    {...(row.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  >
-                    {row.value}
-                  </a>
-                ) : (
-                  <span className="v">{row.value}</span>
-                )}
+
+        <h2 className="contact-statement rv">
+          Building something that needs a <em>security engineer?</em>
+        </h2>
+
+        <div className="contact-body">
+          <div className="rv rv-d1">
+            <p className="contact-lead">
+              <strong>AppSec roles, bounty collaborations, or product security reviews.</strong> My
+              inbox is open — send the scope and I&apos;ll tell you how I&apos;d approach it.
+            </p>
+            <div className="contact-actions">
+              <button className="copy-mail" type="button" onClick={copyEmail}>
+                {contact.email} <span aria-hidden="true">{copied ? "copied" : "copy"}</span>
+              </button>
+              <a className="link-mono" href={`mailto:${contact.email}`}>
+                Open mail <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <dl className="contact-meta rv rv-d2">
+            {META.map((row) => (
+              <div key={row.k}>
+                <dt>{row.k}</dt>
+                <dd>
+                  {row.href ? (
+                    <a
+                      href={row.href}
+                      {...(row.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    >
+                      {row.v}
+                    </a>
+                  ) : row.v}
+                </dd>
               </div>
             ))}
-            <p className="pgp-note">{contact.note}</p>
-          </div>
-          <ContactForm />
+          </dl>
         </div>
+
+        <ContactForm />
       </div>
     </section>
   );

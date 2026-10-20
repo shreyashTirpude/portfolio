@@ -2,11 +2,10 @@
 
 import { useEffect } from "react";
 
-/** Global ambient layer: lightweight wave field, vignette, grain, scroll-progress bar. */
+/** Global ambient layer: hairline grid, vignette, grain, scroll-progress bar. */
 export function AmbientFX() {
   useEffect(() => {
     const bar = document.getElementById("scrollBar");
-    const spotlight = document.querySelector<HTMLElement>(".spotlight");
     if (!bar) return;
     let ticking = false;
     const onScroll = () => {
@@ -22,22 +21,7 @@ export function AmbientFX() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const onPointerMove = (event: PointerEvent) => {
-      if (!spotlight) return;
-      spotlight.style.setProperty("--spot-x", `${event.clientX}px`);
-      spotlight.style.setProperty("--spot-y", `${event.clientY}px`);
-    };
-    if (finePointer && !reducedMotion) {
-      window.addEventListener("pointermove", onPointerMove, { passive: true });
-    }
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("pointermove", onPointerMove);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -45,18 +29,8 @@ export function AmbientFX() {
       <div id="scrollBar" aria-hidden="true" />
       <div className="bg-scene" aria-hidden="true">
         <div className="grid-field" />
-        <svg className="wave-field" viewBox="0 0 1440 900" preserveAspectRatio="none">
-          {Array.from({ length: 9 }, (_, index) => (
-            <path
-              key={index}
-              d="M-180 560 C 120 390, 320 760, 610 570 S 1080 380, 1620 590"
-              transform={`translate(0 ${index * 34})`}
-            />
-          ))}
-        </svg>
       </div>
       <div className="vignette" aria-hidden="true" />
-      <div className="spotlight" aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
     </>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { LineReveal } from "@/components/blocks/line-reveal";
 
 const FAQS = [
   {
@@ -31,49 +30,52 @@ export default function FAQ() {
   return (
     <section id="faq">
       <div className="container">
-        <div className="sec-head">
-          <div className="eyebrow rv">06 · faq</div>
-          <h2 className="section-title rv rv-d1">
-            <LineReveal>
-              Common <span className="serif">questions.</span>
-            </LineReveal>
-          </h2>
+        <div className="sec-meta">
+          <b>[06]</b>
+          <i className="rule" aria-hidden="true" />
+          <span>faq · before you ask</span>
         </div>
-        <div className="faq-list">
-          {FAQS.map((faq, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={faq.q} className="rv">
-                <div className={`faq-item ${isOpen ? "open" : ""}`}>
-                  <button
-                    id={`faq-trigger-${i}`}
-                    className="faq-q"
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${i}`}
-                    onClick={() => setOpen(isOpen ? null : i)}
-                  >
-                    <span>{faq.q}</span>
-                    <span className="plus" aria-hidden="true">
-                      +
-                    </span>
-                  </button>
-                  <div
-                    id={`faq-panel-${i}`}
-                    className="faq-a"
-                    role="region"
-                    aria-labelledby={`faq-trigger-${i}`}
-                    aria-hidden={!isOpen}
-                    inert={!isOpen}
-                  >
-                    <div className="in">
-                      <p>{faq.a}</p>
+
+        <div className="sec-grid">
+          <div className="sec-head">
+            <h2 className="rv">Common questions.</h2>
+            <p className="rv rv-d1">Roles, disclosure, collaboration, and how to verify any claim on this page.</p>
+          </div>
+
+          <div className="faq">
+            {FAQS.map((faq, i) => {
+              const isOpen = open === i;
+              return (
+                <div key={faq.q} className="rv">
+                  <div className={`faq-item ${isOpen ? "open" : ""}`}>
+                    <button
+                      id={`faq-trigger-${i}`}
+                      className="faq-q"
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-panel-${i}`}
+                      onClick={() => setOpen(isOpen ? null : i)}
+                    >
+                      <span>{faq.q}</span>
+                      <span className="plus" aria-hidden="true">+</span>
+                    </button>
+                    <div
+                      id={`faq-panel-${i}`}
+                      className="faq-a"
+                      role="region"
+                      aria-labelledby={`faq-trigger-${i}`}
+                      aria-hidden={!isOpen}
+                      inert={!isOpen}
+                    >
+                      <div className="in">
+                        <p>{faq.a}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
