@@ -60,14 +60,43 @@ function ContactForm() {
   );
 }
 
+type CopyState = "idle" | "copied" | "failed";
+
 export default function Contact() {
-  const [copied, setCopied] = useState(false);
+  const [copyState, setCopyState] = useState<CopyState>("idle");
 
   const copyEmail = () => {
-    void navigator.clipboard?.writeText(contact.email).then(() => {
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    });
+    const email = contact.email;
+
+    // Fallback for browsers that refuse the async clipboard API.
+    const fallbackCopy = () => {
+      const field = document.createElement("textarea");
+      field.value = email;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.top = "0";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+      const copied = document.execCommand("copy");
+      document.body.removeChild(field);
+      return copied;
+    };
+
+    const settle = (state: CopyState) => {
+      setCopyState(state);
+      window.setTimeout(() => setCopyState("idle"), 2400);
+    };
+
+    if (!navigator.clipboard?.writeText) {
+      settle(fallbackCopy() ? "copied" : "failed");
+      return;
+    }
+
+    navigator.clipboard
+      .writeText(email)
+      .then(() => settle("copied"))
+      .catch(() => settle(fallbackCopy() ? "copied" : "failed"));
   };
 
   return (
@@ -90,9 +119,24 @@ export default function Contact() {
               inbox is open — send the scope and I&apos;ll tell you how I&apos;d approach it.
             </p>
             <div className="contact-actions">
-              <button className="copy-mail" type="button" onClick={copyEmail}>
-                {contact.email} <span aria-hidden="true">{copied ? "copied" : "copy"}</span>
+              <button
+                className="copy-mail"
+                type="button"
+                onClick={copyEmail}
+                data-copy-state={copyState}
+              >
+                {contact.email}{" "}
+                <span aria-hidden="true">
+                  {copyState === "copied" ? "copied" : copyState === "failed" ? "copy failed" : "copy"}
+                </span>
               </button>
+              <span className="sr-only" role="status" aria-live="polite">
+                {copyState === "copied"
+                  ? "Email address copied to the clipboard."
+                  : copyState === "failed"
+                    ? "Could not copy the email address. Select and copy it manually."
+                    : ""}
+              </span>
               <a className="link-mono" href={`mailto:${contact.email}`}>
                 Open mail <span aria-hidden="true">→</span>
               </a>
